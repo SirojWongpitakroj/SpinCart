@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>SpinCart</title>
+</head>
+<body class="min-h-screen bg-cream">
+    <nav class="fixed w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="./home.html"><img src="./assets/images/SpinCart-logo.png" alt="SpinCart" class="w-32 h-auto"></a>
+                </div>
+                
+                <!-- Profile Setting -->
+                <div class="hidden sm:flex justify-center rounded-full px-4 py-2 max-w-sm md:flex flex-1 max-w-md bg-white">
+                    <h1 class="text-xl font-semibold text-black">Profile Setting</h1>
+                </div>
+                
+                <!-- Desktop Right side icons -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <!-- Filter Icon -->
+                    <button class="p-2 rounded-full bg-white hover:bg-blue-600 transition-colors duration-200 aspect-square" 
+                            title="Filter">
+                        <img src="./assets/images/filter-logo.png" alt="Filter" class="w-6 h-6">
+                    </button>
+                    
+                    <!-- Shopping Cart Icon -->
+                    <a href="./cart.html" class="relative p-2  bg-white rounded-full hover:bg-blue-600 transition-colors duration-200 aspect-square" >
+                        <img src="./assets/images/shopping-cart-logo.png" alt="Shopping Cart" class="w-6 h-6">
+                    </a>
+                    
+                    <!-- Profile Icon -->
+                    <a href="./profile.html" class="p-2 rounded-full bg-white hover:bg-blue-600 transition-colors duration-200 aspect-square">
+                        <img src="./assets/images/profile-logo.png" alt="Profile" class="w-6 h-6 object-scale-down">
+                    </a>
+                </div>
+                
+                <!-- Mobile hamburger menu button -->
+                <div class="md:hidden">
+                    <button id="hamburger-menu" class="p-2 rounded-lg hover:bg-blue-600 transition-colors duration-200" 
+                            title="Menu">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-16 w-full px-4">
+        <div class="grid grid-cols-2 grid-rows-2 gap-4">
+            <!--Address-->
+            <div class="flex flex-col gap-2 p-1">
+                <h2 class="font-semibold text-lg">My Address</h2>
+                <div class="flex flex-col items-end sm:grid sm:grid-cols-2 sm:grid-rows-5 gap-2">
+                    <textarea name="addressline1" id="addressline1" rows="3" placeholder="Address line 1"
+                              class="row-span-2 w-full p-2 border border-gray-300 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+                    <textarea name="addressline2" id="addressline2" rows="3" placeholder="Address line 2 (optional)"
+                              class="row-span-2 w-full p-2 border border-gray-300 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+                    <textarea name="city" id="city" rows="1" placeholder="City"
+                              class="w-full p-2 border border-gray-300 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+                    <textarea name="province" id="province" rows="1" placeholder="Province/State"
+                              class="w-full p-2 border border-gray-300 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+                    <textarea name="country" id="country" rows="1" placeholder="Country"
+                              class="w-full p-2 border border-gray-300 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+                    <textarea name="zipcode" id="zipcode" rows="1" placeholder="Zip / Postal code"
+                              class="w-full p-2 border border-gray-300 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+                    <div class="flex justify-end col-start-2 col-end-3"><button type="button" class="w-fit py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full">Save</button></div>
+                </div>
+            </div>
+
+            <!--Payment-->
+            <div class="flex flex-col row-start-2 row-end-3 gap-2 p-1">
+                <h2 class="font-semibold text-lg">Payment</h2>
+                <div class="flex flex-col items-end gap-2">
+                    <textarea name="fullName" id="fullName" rows="1" placeholder="Fullname"
+                              class="row-span-2 w-full p-2 border border-gray-300 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+                    <textarea name="cardNumber" id="cardNumber" rows="1" placeholder="Cerdit Card Number"
+                              class="row-span-2 w-full p-2 border border-gray-300 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+                    <textarea name="expiryDate" id="expiryDate" rows="1" placeholder="Expiry Date (ex. 09/28)"
+                              class="w-full p-2 border border-gray-300 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+                    <textarea name="cvc" id="cvc" rows="1" placeholder="CVC"
+                            class="w-full p-2 border border-gray-300 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+                    <div class="flex justify-end col-start-2 col-end-3"><button type="button" class="w-fit py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full">Save</button></div>
+                </div>
+            </div>
+            <!--Profile Edit-->
+            <div class="flex flex-col items-center row-span-2 p-4 gap-4">
+                <h2 class="font-semibold text-2xl mt-4">Edit Profile</h2>
+                <div class="flex flex-col w-full">
+                     <div class="bg-blue-500 flex justify-center items-center p-4">
+                         <div class="relative rounded-full bg-white h-24 w-24 p-4 aspect-square">
+                            <img src="./assets/images/profile-logo.png" alt="Profile Logo" class="w-full h-full object-contain">
+                         </div>
+                     </div>
+                     <div class="grid grid-cols-[1fr_2fr] grid-rows-5 bg-white p-4 gap-2">
+                        <h3 class="text-md font-medium text-gray-700 flex items-center">Username</h3>
+                        <input type="text" placeholder="Username" 
+                                class="w-full px-4 py-2 border border-gray-300 text-sm text-gray-900 placeholder-black text-right focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                        <h3 class="text-md font-medium text-gray-700 flex items-center">Password</h3>
+                        <input type="text" placeholder="Password" 
+                                class="w-full px-4 py-2 border border-gray-300 text-sm text-gray-900 placeholder-black text-right focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                        <h3 class="text-md font-medium text-gray-700 flex items-center">Fullname</h3>
+                        <input type="text" placeholder="Fullname" 
+                                class="w-full px-4 py-2 border border-gray-300 text-sm text-gray-900 placeholder-black text-right focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                        <h3 class="text-md font-medium text-gray-700 flex items-center">Email</h3>
+                        <input type="text" placeholder="Email" 
+                                class="w-full px-4 py-2 border border-gray-300 text-sm text-gray-900 placeholder-black text-right focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                        <h3 class="text-md font-medium text-gray-700 flex items-center">Phone Number</h3>
+                        <input type="text" placeholder="Phone Number" 
+                                class="w-full px-4 py-2 border border-gray-300 text-sm text-gray-900 placeholder-black text-right focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors">
+                                <div class="flex justify-center col-span-2"><button type="button" class="w-fit py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full">Save</button></div>        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
