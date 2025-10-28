@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpinCart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="fixed w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="./home.html"><img src="./assets/images/SpinCart-logo.png" alt="SpinCart" class="w-32 h-auto"></a>
+                </div>
+                
+                <!-- Desktop Search Bar -->
+                <div class="hidden md:flex flex-1 max-w-lg mx-8">
+                    <div class="relative w-full flex items-center gap-2">
+                        <input type="text" 
+                               placeholder="Search products..." 
+                               class="h-8 w-full rounded-full p-4 text-black border-none outline-none">
+                        <div type="button" class="bg-white rounded-full h-8 w-8 flex items-center justify-center aspect-square">
+                            <svg class="h-5 w-5 text-gray-400 flex justify-center items-center" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Desktop Right side icons -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <!-- Filter Icon -->
+                    <button class="p-2 rounded-full bg-white hover:bg-blue-600 transition-colors duration-200 aspect-square" 
+                            title="Filter">
+                        <img src="./assets/images/filter-logo.png" alt="Filter" class="w-6 h-6">
+                    </button>
+                    
+                    <!-- Shopping Cart Icon -->
+                    <a href="./cart.html" class="relative p-2  bg-white rounded-full hover:bg-blue-600 transition-colors duration-200 aspect-square" >
+                        <img src="./assets/images/shopping-cart-logo.png" alt="Shopping Cart" class="w-6 h-6">
+                    </a>
+                    
+                    <!-- Profile Icon -->
+                    <a href="./profile.html" class="p-2 rounded-full bg-white hover:bg-blue-600 transition-colors duration-200 aspect-square">
+                        <img src="./assets/images/profile-logo.png" alt="Profile" class="w-6 h-6">
+                    </a>
+                </div>
+                
+                <!-- Mobile hamburger menu button -->
+                <div class="md:hidden">
+                    <button id="hamburger-menu" class="p-2 rounded-lg hover:bg-blue-600 transition-colors duration-200" 
+                            title="Menu">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="bg-[#f4eee8] px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Featured Products</h2>
+
+            <!-- Product Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <article class="bg-white rounded-xl">
+                    <div class="p-4 overflow-hidden aspect-square">
+                        <img src="./assets/product_images/Smart-Air-Purifier.png" alt="Product image"
+                             class="w-full h-full object-scale-down">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-sm font-medium text-gray-900 line-clamp-2">Smart Air Purifier</h3>
+                        <p class="mt-1 text-xs text-gray-500">Protect Lives of your love ones</p>
+                        <div class="mt-3 flex items-center justify-between">
+                            <span class="text-blue-600 font-semibold">฿3,998</span>
+                            <div class="p-2 rounded-full bg-gray-200 text-sm">Home Appliance</div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="bg-white rounded-xl">
+                    <div class="p-4 overflow-hidden aspect-square">
+                        <img src="./assets/product_images/Wireless_Keyboard.png" alt="Wireless Keyboard"
+                             class="w-full h-full object-scale-down">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-sm font-medium text-gray-900 line-clamp-2">Wireless Keyboard</h3>
+                        <p class="mt-1 text-xs text-gray-500 h-4">90-hours battery</p>
+                        <div class="mt-3 flex items-center justify-between">
+                            <span class="text-blue-600 font-semibold">฿950</span>
+                            <div class="p-2 rounded-full bg-gray-200 text-sm">Electronics</div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="bg-white rounded-xl">
+                    <div class="p-4 overflow-hidden aspect-square">
+                        <img src="./assets/product_images/Vacuum_Cleaner.png" alt="Vacuum Cleaner"
+                             class="w-full h-full object-scale-down">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-sm font-medium text-gray-900 line-clamp-2">Vacuum Cleaner</h3>
+                        <p class="mt-1 text-xs text-gray-500">Dust-free with our new product</p>
+                        <div class="mt-3 flex items-center justify-between">
+                            <span class="text-blue-600 font-semibold">฿10,728</span>
+                            <div class="p-2 rounded-full bg-gray-200 text-sm">Home Appliance</div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 4 -->
+                <article class="group bg-white rounded-xl">
+                    <div class="p-4 overflow-hidden aspect-square">
+                        <img src="./assets/product_images/lipstick.png" alt="LipStick"
+                             class="w-full h-full object-scale-down">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-sm font-medium text-gray-900 line-clamp-2">Velvet Satin</h3>
+                        <p class="mt-1 text-xs text-gray-500">Enrich moist on your glowing lips</p>
+                        <div class="mt-3 flex items-center justify-between">
+                            <span class="text-blue-600 font-semibold">฿490</span>
+                            <div class="p-2 rounded-full bg-gray-200 text-sm">Shopping beauty</div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 5 -->
+                <article class="group bg-white rounded-xl">
+                    <div class="p-4 overflow-hidden aspect-square">
+                        <img src="./assets/product_images/T-Shirt.png" alt="T-Shirt"
+                             class="w-full h-full object-scale-down">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-sm font-medium text-gray-900 line-clamp-2">T-Shirt</h3>
+                        <p class="mt-1 text-xs text-gray-500">Comfort and minimalistic looks</p>
+                        <div class="mt-3 flex items-center justify-between">
+                            <span class="text-blue-600 font-semibold">฿99</span>
+                            <div class="p-2 rounded-full bg-gray-200 text-sm">Clothes</div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 6 -->
+                <article class="group bg-white rounded-xl">
+                    <div class="p-4 overflow-hidden aspect-square">
+                        <img src="./assets/product_images/Lamp.png" alt="Product image"
+                             class="w-full h-full object-scale-down">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-sm font-medium text-gray-900 line-clamp-2">Antique Lamp</h3>
+                        <p class="mt-1 text-xs text-gray-500">Lighten room with retro styles</p>
+                        <div class="mt-3 flex items-center justify-between">
+                            <span class="text-blue-600 font-semibold">฿299</span>
+                            <div class="p-2 rounded-full bg-gray-200 text-sm">Home Appliance</div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 7 -->
+                <article class="group bg-white rounded-xl">
+                    <div class="p-4 overflow-hidden aspect-square">
+                        <img src="./assets/product_images/iPhone.png" alt="Product image"
+                             class="w-full h-full object-scale-down">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-sm font-medium text-gray-900 line-clamp-2">Mobile Phone</h3>
+                        <p class="mt-1 text-xs text-gray-500">Compact and Portability is key</p>
+                        <div class="mt-3 flex items-center justify-between">
+                            <span class="text-blue-600 font-semibold">฿2,999</span>
+                            <div class="p-2 rounded-full bg-gray-200 text-sm">Electronics</div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 8 -->
+                <article class="group bg-white rounded-xl">
+                    <div class="p-4 overflow-hidden aspect-square">
+                        <img src="./assets/product_images/Perfume.png" alt="Perfume"
+                             class="w-full h-full object-scale-down">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-sm font-medium text-gray-900 line-clamp-2">Perfume</h3>
+                        <p class="mt-1 text-xs text-gray-500">Emphasize charisma with perfume</p>
+                        <div class="mt-3 flex items-center justify-between">
+                            <span class="text-blue-600 font-semibold">฿1,099</span>
+                            <div class="p-2 rounded-full bg-gray-200 text-sm">Shopping Beauty</div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
