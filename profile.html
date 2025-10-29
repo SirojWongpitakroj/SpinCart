@@ -23,12 +23,6 @@
                 
                 <!-- Desktop Right side icons -->
                 <div class="hidden md:flex items-center space-x-4">
-                    <!-- Filter Icon -->
-                    <button class="p-2 rounded-full bg-white hover:bg-blue-600 transition-colors duration-200 aspect-square" 
-                            title="Filter">
-                        <img src="./assets/images/filter-logo.png" alt="Filter" class="w-6 h-6">
-                    </button>
-                    
                     <!-- Shopping Cart Icon -->
                     <a href="./cart.html" class="relative p-2  bg-white rounded-full hover:bg-blue-600 transition-colors duration-200 aspect-square" >
                         <img src="./assets/images/shopping-cart-logo.png" alt="Shopping Cart" class="w-6 h-6">
@@ -53,10 +47,17 @@
         </div>
     </nav>
 
+    <!-- Mobile dropdown menu -->
+    <div id="dropdown-menu" class="hidden md:hidden flex flex-col bg-blue-500 p-4 pt-20">
+        <div type="button" class="text-lg font-semibold p-2 hover:bg-blue-600 rounded-lg text-white"><a href="./home.html">Home</a></div>
+        <div type="button" class="text-lg font-semibold p-2 hover:bg-blue-600 rounded-lg text-white"><a href="./cart.html">Shopping Cart</a></div>
+        <div type="button" class="text-lg font-semibold p-2 hover:bg-blue-600 rounded-lg text-white"><a href="./profile.html">Profile</a></div>
+    </div>
+
     <section class="pt-16 w-full px-4">
-        <div class="grid grid-cols-2 grid-rows-2 gap-4">
+        <div class="flex flex-col sm:grid sm:grid-cols-2 sm:grid-rows-2 gap-4">
             <!--Address-->
-            <div class="flex flex-col gap-2 p-1">
+            <div class="flex flex-col gap-2 p-1 order-2 sm:order-none">
                 <h2 class="font-semibold text-lg">My Address</h2>
                 <div class="flex flex-col items-end sm:grid sm:grid-cols-2 sm:grid-rows-5 gap-2">
                     <textarea name="addressline1" id="addressline1" rows="3" placeholder="Address line 1"
@@ -76,7 +77,7 @@
             </div>
 
             <!--Payment-->
-            <div class="flex flex-col row-start-2 row-end-3 gap-2 p-1">
+            <div class="flex flex-col row-start-2 row-end-3 gap-2 order-2 sm:order-none p-1">
                 <h2 class="font-semibold text-lg">Payment</h2>
                 <div class="flex flex-col items-end gap-2">
                     <textarea name="fullName" id="fullName" rows="1" placeholder="Fullname"
@@ -91,7 +92,7 @@
                 </div>
             </div>
             <!--Profile Edit-->
-            <div class="flex flex-col items-center row-span-2 p-4 gap-4">
+            <div class="flex flex-col items-center row-span-2 p-4 gap-4 order-1 sm:order-none">
                 <h2 class="font-semibold text-2xl mt-4">Edit Profile</h2>
                 <div class="flex flex-col w-full">
                      <div class="bg-blue-500 flex justify-center items-center p-4">
