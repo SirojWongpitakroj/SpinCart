@@ -1,74 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpinCart</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="./style.css">
-</head>
-<body class="bg-cream">
-    <nav class="fixed w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
-                <div class="flex-shrink-0">
-                    <a href="./home.html"><img src="./assets/images/SpinCart-logo.png" alt="SpinCart" class="w-32 h-auto"></a>
-                </div>
-                
-                <!-- Desktop Search Bar -->
-                <div class="hidden md:flex flex-1 max-w-lg mx-8">
-                    <div class="relative w-full flex items-center gap-2">
-                        <input type="text" 
-                               placeholder="Search products..." 
-                               class="h-8 w-full rounded-full p-4 text-black border-none outline-none">
-                        <div type="button" class="bg-white rounded-full h-8 w-8 flex items-center justify-center aspect-square">
-                            <svg class="h-5 w-5 text-gray-400 flex justify-center items-center" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Desktop Right side icons -->
-                <div class="hidden md:flex items-center space-x-4">
-                    <!-- Filter Icon -->
-                    <button class="p-2 rounded-full bg-white hover:bg-blue-600 transition-colors duration-200 aspect-square" 
-                            title="Filter">
-                        <img src="./assets/images/filter-logo.png" alt="Filter" class="w-6 h-6">
-                    </button>
-                    
-                    <!-- Shopping Cart Icon -->
-                    <a href="./cart.html" class="relative p-2  bg-white rounded-full hover:bg-blue-600 transition-colors duration-200 aspect-square" >
-                        <img src="./assets/images/shopping-cart-logo.png" alt="Shopping Cart" class="w-6 h-6">
-                    </a>
-                    
-                    <!-- Profile Icon -->
-                    <a href="./profile.html" class="p-2 rounded-full bg-white hover:bg-blue-600 transition-colors duration-200 aspect-square">
-                        <img src="./assets/images/profile-logo.png" alt="Profile" class="w-6 h-6 object-scale-down">
-                    </a>
-                </div>
-                
-                <!-- Mobile hamburger menu button -->
-                <div class="md:hidden">
-                    <button id="hamburger-menu" class="p-2 rounded-lg hover:bg-blue-600 transition-colors duration-200" 
-                            title="Menu">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!--Mobile Dropdown Menu-->
-    <div id="dropdown-menu" class="hidden md:hidden flex flex-col bg-blue-500 p-4 pt-20">
-        <div class="text-lg font-semibold p-2 hover:bg-blue-600 rounded-lg text-white"><a href="./home.html">Home</a></div>
-        <div class="text-lg font-semibold p-2 hover:bg-blue-600 rounded-lg text-white"><a href="./cart.html">Shopping Cart</a></div>
-        <div class="text-lg font-semibold p-2 hover:bg-blue-600 rounded-lg text-white"><a href="./profile.html">Profile</a></div>
-        <div id="filter-menu" class="text-lg font-semibold p-2 hover:bg-blue-600 rounded-lg text-white"><a href="./home.html">Filter</a></div>
-    </div>
+<%- include("partials/header.ejs") %>
 
     <section class="pt-16">
         <!-- Title bar -->
@@ -83,9 +13,9 @@
                 <!-- Item 1 -->
                 <div class="relative flex gap-4 bg-white rounded-xl shadow-sm p-4 items-center">
                     <input type="checkbox" aria-label="Select item" class="shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 appearance-none cursor-pointer checked:bg-blue-600 focus:outline-none" />
-                    <img src="./assets/product_images/Smart-Air-Purifier.png" alt="Smart Air Purifier" class="w-24 h-24 rounded-md object-contain bg-gray-100">
+                    <img src="product_images/Smart-Air-Purifier.png" alt="Smart Air Purifier" class="w-24 h-24 rounded-md object-contain bg-gray-100">
                     <div class="flex-1">
-                        <a href="#" class="text-sm font-semibold text-blue-700 hover:underline">Smart Air Purifier</a>
+                        <a href="#" class="text-sm font-semibold text-blue-700">Smart Air Purifier</a>
                         <p class="mt-1 text-xs text-gray-700">Air Purifiers for Bedroom Home Dorm, 3-in-1 Filter Cleaner with Fragrance Sponge for Better Sleep, Filters Smoke, Allergies, Pet Dander, Odor, Dust</p>
                         <div class="mt-2 flex items-center gap-2 text-sm">
                             <span class="font-semibold">฿3,998</span>
@@ -107,9 +37,9 @@
                 <!-- Item 2 -->
                 <div class="relative flex gap-4 bg-white rounded-xl shadow-sm p-4 items-center">
                     <input type="checkbox" aria-label="Select item" class="shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 appearance-none cursor-pointer checked:bg-blue-600 focus:outline-none" />
-                    <img src="./assets/product_images/Wireless_Keyboard.png" alt="Wireless Keyboard" class="w-24 h-24 rounded-md object-contain bg-gray-100">
+                    <img src="product_images/Wireless_Keyboard.png" alt="Wireless Keyboard" class="w-24 h-24 rounded-md object-contain bg-gray-100">
                     <div class="flex-1">
-                        <a href="#" class="text-sm font-semibold text-blue-700 hover:underline">Wireless Keyboard</a>
+                        <a href="#" class="text-sm font-semibold text-blue-700 ">Wireless Keyboard</a>
                         <p class="mt-1 text-xs text-gray-700">Wireless Keyboard for Windows, 2.4 GHz Wireless, Full‑Size, Number Pad, 8 Multimedia Keys, 2‑Year Battery Life, Compatible with PC, Laptop.</p>
                         <div class="mt-2 flex items-center gap-2 text-sm">
                             <span class="text-gray-900 font-semibold">฿950</span>
@@ -131,9 +61,9 @@
                 <!-- Item 3 -->
                 <div class="relative flex gap-4 bg-white rounded-xl shadow-sm p-4 items-center">
                     <input type="checkbox" aria-label="Select item" class="shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 appearance-none cursor-pointer checked:bg-blue-600 focus:outline-none" />
-                    <img src="./assets/product_images/Vacuum_Cleaner.png" alt="Vacuum Cleaner" class="w-24 h-24 rounded-md object-contain bg-gray-100">
+                    <img src="product_images/Vacuum_Cleaner.png" alt="Vacuum Cleaner" class="w-24 h-24 rounded-md object-contain bg-gray-100">
                     <div class="flex-1">
-                        <a href="#" class="text-sm font-semibold text-blue-700 hover:underline">Vacuum Cleaner</a>
+                        <a href="#" class="text-sm font-semibold text-blue-700 ">Vacuum Cleaner</a>
                         <p class="mt-1 text-xs text-gray-700">Vacuum Cleaner Description</p>
                         <div class="mt-2 flex items-center gap-2 text-sm">
                             <span class="font-semibold">฿2,500</span>
@@ -163,7 +93,7 @@
                         <hr class="my-3">
                         <div class="flex justify-between text-base font-semibold"><span>Total Payment</span><span>฿26,270</span></div>
                     </div>
-                    <a href="./payment.html" class="block text-center mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded-full">Place Order</a>
+                    <a href="/payment" class="block text-center mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded-full">Place Order</a>
                 </div>
             </aside>
         </div>
@@ -174,7 +104,4 @@
 
 
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="script.js"></script>
-</body>
-</html>
+    <%- include("partials/footer.ejs") %>

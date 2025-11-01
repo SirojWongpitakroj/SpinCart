@@ -1,0 +1,53 @@
+<!-- Filter Overlay Modal -->
+<div id="filter-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div class="relative w-[95%] max-w-2xl bg-white rounded-2xl shadow-xl p-6">
+        <!-- Close Button -->
+        <button id="close-filter" class="absolute right-4 top-4 text-gray-400 hover:text-gray-600 text-2xl leading-none">×</button>
+        
+        <!-- Header -->
+        <h2 class="text-2xl font-semibold text-gray-900 mb-6">Filter by Category</h2>
+        
+        <!-- Category Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <!-- All Categories -->
+            <button class="filter-category category-btn bg-gray-100 hover:bg-blue-500 hover:text-white text-gray-700 font-medium py-4 px-6 rounded-xl transition-colors duration-200" data-category="all">
+                All Categories
+            </button>
+            
+            <!-- Home Appliance -->
+            <button class="filter-category category-btn bg-gray-100 hover:bg-blue-500 hover:text-white text-gray-700 font-medium py-4 px-6 rounded-xl transition-colors duration-200" data-category="Home Appliance">
+                Home Appliance
+            </button>
+            
+            <!-- Electronics -->
+            <button class="filter-category category-btn bg-gray-100 hover:bg-blue-500 hover:text-white text-gray-700 font-medium py-4 px-6 rounded-xl transition-colors duration-200" data-category="Electronics">
+                Electronics
+            </button>
+            
+            <!-- Shopping Beauty -->
+            <button class="filter-category category-btn bg-gray-100 hover:bg-blue-500 hover:text-white text-gray-700 font-medium py-4 px-6 rounded-xl transition-colors duration-200" data-category="Shopping Beauty">
+                Shopping Beauty
+            </button>
+            
+            <!-- Clothes -->
+            <button class="filter-category category-btn bg-gray-100 hover:bg-blue-500 hover:text-white text-gray-700 font-medium py-4 px-6 rounded-xl transition-colors duration-200" data-category="Clothes">
+                Clothes
+            </button>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="flex justify-end gap-4 mt-6">
+            <button id="clear-filter" class="px-6 py-2 text-gray-600 hover:text-gray-800 font-medium">
+                Clear
+            </button>
+            <button id="apply-filter" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full">
+                Apply Filter
+            </button>
+        </div>
+    </div>
+</div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script/script.js"></script>
+</body>
+</html>

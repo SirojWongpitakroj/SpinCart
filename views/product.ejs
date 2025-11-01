@@ -1,0 +1,44 @@
+<%- include("partials/header.ejs") %>
+
+    <!--Main section-->
+    <section class="flex md:flex-row flex-col p-8 h-screen pt-24">
+        <!--Image Seciton-->
+        <div class="relative flex justify-center items-center h-full rounded-2xl bg-white p-16 flex-shrink-0">
+            <img src="product_images/Smart-Air-Purifier.png" alt="Product Image" class="w-full h-full object-contain">
+            <div class="absolute top-1/2 left-2 rounded-full ">
+                <img src="images/Arrow-icon.png" alt="arrow-icon">
+            </div>
+            <div class="absolute top-1/2 right-2 rounded-full scale-x-[-1]">
+                <img src="images/Arrow-icon.png" alt="arrow-icon">
+            </div>
+        </div>
+
+        <!--Product Title and Description-->
+        <div class="flex flex-col items-start p-2 gap-2">
+            <h1 class="text-2xl font-semibold">Air Purifier</h1>
+            <p class="bg-white rounded-lg p-2">Product title:Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum, aliquam?</p>
+            <h2 class="text-xl font-semibold">Description</h2>
+            <p class="long-text text-sm bg-white rounded-lg p-2">Product description: Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ea id quas accusamus esse quo inventore quasi suscipit dicta molestiae! Suscipit fuga, maiores voluptates vero perferendis facilis maxime a voluptatibus dolor!</p>
+            <div class="flex justify-between items-end p-4 w-full h-full">
+                <div class="flex flex-col h-full gap-2 justify-end w-1/2 md:w-auto">
+                    <div class="flex items-center gap-2">
+                        <img src="images/star-icon.png" alt="star-icon" class="h-8 object-contain">
+                        <h3 class="text-yellow-400 text-3xl font-bold">4.7</h3>
+                        <h4 class="text-md font-medium">(1983)</h4>
+                    </div>
+                    <div class="flex flex-col items-center border-black bg-yellow-100 rounded-xl shadow-[inset_0_0_10px_rgba(0,0,0,0.05)] p-4 gap-2">
+                        <p class="long-text text-center text-xs lg:w-48 md:w-32">I'm very satisfied with this air purifier. Since I've been using it. I've noticed the air is much fresher and cleaner, especially in the room where I spend the most time.</p>
+                        <img src="images/star-icon.png" alt="star-icon" class="w-6 h-6">
+                    </div>
+                </div>
+                <div class="flex flex-col items-end gap-2">
+                    <h2 class="text-2xl font-bold mr-4 whitespace-nowrap">฿3,998</h2>
+                    <div class="bg-blue-500 rounded-full p-4 whitespace-nowrap">Add to Cart</div>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+
+<%- include("partials/footer.ejs") %>

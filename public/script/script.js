@@ -6,7 +6,7 @@ $("#hamburger-menu").click(function() {
 
 //Product Cards link to Product Page
 $(".cards").click(function() {
-    window.location.href = "./product.html";
+    window.location.href = "/product";
 });
 
 //Slicing Long Text
