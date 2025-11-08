@@ -21,7 +21,9 @@
   "homepage": "https://github.com/SirojWongpitakroj/SpinCart#readme",
   "dependencies": {
     "body-parser": "^2.2.0",
+    "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "mysql2": "^3.15.3"
   }
 }

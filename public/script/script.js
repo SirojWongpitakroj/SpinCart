@@ -4,11 +4,6 @@ $("#hamburger-menu").click(function() {
     $("#dropdown-menu").toggle();
 });
 
-//Product Cards link to Product Page
-$(".cards").click(function() {
-    window.location.href = "/product";
-});
-
 //Slicing Long Text
 var longText = $(".long-text").text();
 var screenWidth = $(window).width();
