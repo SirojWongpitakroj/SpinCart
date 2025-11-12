@@ -7,10 +7,10 @@
             <!-- Product Grid -->
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 
-                <% locals.products.forEach((prod) => { %>
+                <% products.forEach((prod) => { %>
                     <form action="/product" method="POST" class="bg-white rounded-xl hover:shadow-lg transition product-card h-full">
                         <!--metadata-->
-                        <input type="hidden" name="id" value="<%= prod.id %>">
+                        <input type="hidden" name="id" value="<%= prod.product_id %>">
                         <!--Product Card-->
                         <button type="submit" class="flex flex-col h-full text-left w-full">
                             <div class="p-4 overflow-hidden aspect-square flex items-center justify-center">

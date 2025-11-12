@@ -17,10 +17,26 @@ class DB {
         INNER JOIN product_images pi ON p.product_id = pi.product_id`);
         return rows;
     };
+
+    async getProductById(id) {
+        const [row] = await pool.query(
+            `SELECT * FROM products p
+            INNER JOIN product_images pi ON p.product_id = pi.product_id
+            WHERE p.product_id = ?`,
+            [id]
+        );
+        return row[0];
+    };
+
+    async insertCartItems(prod) {
+        const result = await pool.query(
+            `INSERT INTO cart_items_id()`
+        )
+    };
 };
 
 // const database1 = new DB();
-// console.log(await database1.getAllProductAndImage());
+// console.log(await database1.getProductById(2));
 
 export default new DB();
 

@@ -11,6 +11,22 @@ if (longText.length > 150 && screenWidth < 800) {
     $(".long-text").text(longText.slice(0,150) + " . . . ");
 }
 
+
+$(".quantity-btn").each(function (index, button) {
+    $(button).click(function () {
+        const input = this.parentElement.querySelector(".quantity-input");
+        const action = this.getAttribute("data-quantity-action");
+        let currentValue = parseInt(input.value, 10) || 1;
+
+        if (action === "increment") {
+            input.value = currentValue + 1;
+        } else if (action === "decrement" && currentValue > 1) {
+            input.value = currentValue - 1;
+        }
+    });
+});
+
+
 // Filter Modal Functionality
 var selectedCategory = null;
 

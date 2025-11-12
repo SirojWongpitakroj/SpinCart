@@ -4,7 +4,7 @@
     <section class="flex md:flex-row flex-col p-8 h-screen pt-24">
         <!--Image Seciton-->
         <div class="relative flex justify-center items-center h-full rounded-2xl bg-white p-16 flex-shrink-0">
-            <img src="product_images/Smart-Air-Purifier.png" alt="Product Image" class="w-full h-full object-contain">
+            <img src="<%= prod.url %>" alt="Product Image" class="w-full h-full object-contain">
             <div class="absolute top-1/2 left-2 rounded-full ">
                 <img src="images/Arrow-icon.png" alt="arrow-icon">
             </div>
@@ -15,10 +15,10 @@
 
         <!--Product Title and Description-->
         <div class="flex flex-col items-start p-2 gap-2">
-            <h1 class="text-2xl font-semibold">Air Purifier</h1>
-            <p class="bg-white rounded-lg p-2">Product title:Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum, aliquam?</p>
+            <h1 class="text-2xl font-semibold"><%= prod.title %></h1>
+            <p class="bg-white rounded-lg p-2"><%= prod.short_description %></p>
             <h2 class="text-xl font-semibold">Description</h2>
-            <p class="long-text text-sm bg-white rounded-lg p-2">Product description: Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ea id quas accusamus esse quo inventore quasi suscipit dicta molestiae! Suscipit fuga, maiores voluptates vero perferendis facilis maxime a voluptatibus dolor!</p>
+            <p class="long-text text-sm bg-white rounded-lg p-2"><%= prod.description %></p>
             <div class="flex justify-between items-end p-4 w-full h-full">
                 <div class="flex flex-col h-full gap-2 justify-end w-1/2 md:w-auto">
                     <div class="flex items-center gap-2">
@@ -31,14 +31,22 @@
                         <img src="images/star-icon.png" alt="star-icon" class="w-6 h-6">
                     </div>
                 </div>
-                <div class="flex flex-col items-end gap-2">
-                    <h2 class="text-2xl font-bold mr-4 whitespace-nowrap">฿3,998</h2>
-                    <div class="bg-blue-500 rounded-full p-4 whitespace-nowrap">Add to Cart</div>
+                <div class="flex flex-col items-end gap-3">
+                    <form action="/cart/add" class="flex flex-col items-center gap-3">
+                        <div class="flex items-center rounded-full">
+                            <button type="button" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full quantity-btn" data-quantity-action="decrement">-</button>
+                            <input type="number" name="quantity" value="1" min="1" readonly class="w-12 text-center appearance-none [appearance:textfield] focus:outline-none 
+                            no-spinner quantity-input">
+                            <button type="button" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full quantity-btn" data-quantity-action="increment">+</button>
+                        </div>
+                        <h2 class="text-2xl font-bold mr-4 whitespace-nowrap">฿<%= prod.price %></h2>
+                        <input type="hidden" name="id" value="<%= prod.product_id %>">
+                        <button type="submit" class="bg-blue-500 rounded-full px-6 py-3 text-white whitespace-nowrap hover:bg-blue-600 transition">Add to Cart</button>
+                    </form>
                 </div>
             </div>
         </div>
         
     </section>
-
 
 <%- include("partials/footer.ejs") %>
