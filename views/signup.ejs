@@ -10,19 +10,19 @@
 <body class="bg-cream min-h-screen">
     <!-- Header Section -->
     <header class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 md:py-3">
             <div class="flex items-center justify-between">
                 <!-- Logo -->
                 <div class="flex items-center gap-2">
-                    <a href="">
-                        <img src="images/SpinCart-logo.png" alt="SpinCart" class="w-32 h-auto">
+                    <a href="/">
+                        <img src="images/SpinCart-logo.png" alt="SpinCart" class="w-28 h-auto md:w-32">
                     </a>
                 </div>
                 <!-- Sign Up Title -->
-                <h1 class="text-2xl font-bold text-white">Sign Up</h1>
+                <h1 class="text-xl font-bold text-white md:text-2xl">Sign Up</h1>
                 <!-- Top Right Logo -->
-                <div class="h-16 w-16 rounded-full overflow-hidden flex items-center justify-center bg-blue-500">
-                    <img src="images/SpinCart-logo.png" alt="SpinCart" class="w-14 h-14 object-contain">
+                <div class="h-12 w-12 rounded-full overflow-hidden flex items-center justify-center bg-blue-500 md:h-14 md:w-14">
+                    <img src="images/SpinCart-logo.png" alt="SpinCart" class="w-10 h-10 object-contain md:w-12 md:h-12">
                 </div>
             </div>
         </div>
@@ -31,104 +31,131 @@
     <!-- Main Content -->
     <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Form Section -->
-        <div class="bg-white rounded-xl shadow-lg p-8">
-            <!-- Personal Information Section -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-                <!-- First Name -->
-                <div class="lg:col-span-1">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        First Name <span class="text-red-500">*</span>
+        <form id="signupForm" action="/signup/confirm" method="POST" class="bg-white rounded-3xl shadow-xl p-8 lg:p-10 space-y-10">
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <!-- Username -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Username <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" placeholder="First Name" 
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-
-                <!-- Middle Name -->
-                <div class="lg:col-span-1">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Middle Name
-                    </label>
-                    <input type="text" placeholder="Middle Name" 
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-
-                <!-- Last Name -->
-                <div class="lg:col-span-1">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Last Name <span class="text-red-500">*</span>
-                    </label>
-                    <input type="text" placeholder="Last Name" 
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-
-                <!-- Email -->
-                <div class="md:col-span-2 lg:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Email <span class="text-red-500">*</span>
-                    </label>
-                    <input type="email" placeholder="Email" 
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="text" placeholder="Username" name="username" required
+                        class="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm shadow-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200">
                 </div>
 
                 <!-- Password -->
-                <div class="md:col-span-2 lg:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
                         Password <span class="text-red-500">*</span>
                     </label>
-                    <input type="password" placeholder="Password" 
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="password" placeholder="Create a password" name="password" required
+                        class="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm shadow-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200">
                 </div>
+            </div>
 
-                <!-- Phone Number -->
-                <div class="md:col-span-2 lg:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Phone Number <span class="text-red-500">*</span>
-                    </label>
-                    <div class="flex gap-2">
-                        <input type="text" value="+66" readonly
-                               class="w-20 px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 text-center font-medium">
-                        <input type="tel" placeholder="Phone Number" 
-                               class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div class="grid grid-cols-1 gap-10 lg:grid-cols-2">
+                <div class="space-y-6">
+                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                        <!-- First Name -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                First Name <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" placeholder="First Name" name="firstName" required
+                                class="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm shadow-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200">
+                        </div>
+
+                        <!-- Last Name -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                Last Name <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" placeholder="Last Name" name="lastName" required
+                                class="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm shadow-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                        <!-- Gender -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                Gender <span class="text-red-500">*</span>
+                            </label>
+                            <select name="gender" required
+                                class="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm shadow-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200">
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Birth Date -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                Birth Date <span class="text-red-500">*</span>
+                            </label>
+                            <input type="date" name="bDate" required
+                                class="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm shadow-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200">
+                        </div>
                     </div>
                 </div>
 
-                <!-- Gender -->
-                <div class="lg:col-span-1">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Gender <span class="text-red-500">*</span>
-                    </label>
-                    <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option value="">Select Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
+                <div class="space-y-6">
+                    <!-- Email -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            Email <span class="text-red-500">*</span>
+                        </label>
+                        <input type="email" placeholder="Email" name="email" required
+                            class="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm shadow-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200">
+                    </div>
 
-                <!-- Birth Date -->
-                <div class="lg:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Birth Date <span class="text-red-500">*</span>
-                    </label>
-                    <input type="date" 
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <!-- Phone Number -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            Phone Number <span class="text-red-500">*</span>
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <span class="inline-flex h-full items-center rounded-2xl border border-gray-200 bg-gray-100 px-4 py-3 text-sm font-semibold text-gray-700 shadow-inner">+66</span>
+                            <input type="tel" placeholder="Phone Number" name="phoneNumber" required
+                                class="flex-1 rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm shadow-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200">
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Action Buttons -->
-            <div class="flex justify-end gap-4 mt-8">
-                <button class="bg-red-500 hover:bg-red-600 text-white font-semibold px-8 py-2 rounded-lg transition-colors">
+            <div class="flex flex-wrap justify-end gap-4">
+                <button type="button" onclick="window.location.href='/';"
+                    class="rounded-xl border border-red-500 px-6 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-50">
                     Cancel
                 </button>
-                <button class="bg-green-500 hover:bg-green-600 text-white font-semibold px-8 py-2 rounded-lg transition-colors">
+                <button type="submit"
+                    class="rounded-xl bg-green-500 px-6 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-green-600 hover:shadow-lg">
                     Confirm
                 </button>
             </div>
-        </div>
+        </form>
     </main>
 
+    <% if (locals.error) { %>
+        <div id="error-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+            <div class="relative w-[90%] max-w-md rounded-3xl border-2 border-red-500 bg-white p-8 text-center shadow-2xl">
+                <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
+                    <span class="text-3xl font-bold text-red-600">!</span>
+                </div>
+                <h2 class="text-xl font-bold text-red-600">Something went wrong</h2>
+                <p class="mt-2 text-sm text-gray-700"><%= locals.error %></p>
+                <button id="dismiss-error"
+                    class="mt-6 inline-flex items-center justify-center rounded-full bg-red-500 px-6 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-red-600">
+                    Dismiss
+                </button>
+            </div>
+        </div>
+    <% } %>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="script.js"></script>
+    <script src="script/script.js"></script>
 </body>
 </html>
 

@@ -2,10 +2,10 @@
 
     <!--Main section-->
     <section class="flex md:flex-row flex-col p-8 h-screen pt-24">
-        <!--Image Seciton-->
-        <div class="relative flex justify-center items-center h-full rounded-2xl bg-white p-16 flex-shrink-0">
-            <img src="<%= prod.url %>" alt="Product Image" class="w-full h-full object-contain">
-            <div class="absolute top-1/2 left-2 rounded-full ">
+        <!--Image Section-->
+        <div class="relative flex justify-center items-center w-full md:w-1/2 max-w-2xl rounded-2xl bg-white md:p-16 p-8 flex-shrink-0">
+            <img src="<%= prod.url %>" alt="Product Image" class="w-full h-auto max-h-[480px] object-contain">
+            <div class="absolute top-1/2 left-2 rounded-full">
                 <img src="images/Arrow-icon.png" alt="arrow-icon">
             </div>
             <div class="absolute top-1/2 right-2 rounded-full scale-x-[-1]">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="flex flex-col items-end gap-3">
-                    <form action="/cart/add" class="flex flex-col items-center gap-3">
+                    <form action="/cart/add" method="POST" class="flex flex-col items-center gap-3">
                         <div class="flex items-center rounded-full">
                             <button type="button" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full quantity-btn" data-quantity-action="decrement">-</button>
                             <input type="number" name="quantity" value="1" min="1" readonly class="w-12 text-center appearance-none [appearance:textfield] focus:outline-none 

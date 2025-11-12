@@ -26,7 +26,6 @@ $(".quantity-btn").each(function (index, button) {
     });
 });
 
-
 // Filter Modal Functionality
 var selectedCategory = null;
 
@@ -75,4 +74,10 @@ $("#clear-filter").click(function() {
     
     // Show all products
     $(".product-card").show();
+});
+
+//Handle Dismiss button
+
+$("#dismiss-error").click(function() {
+    $("#error-overlay").addClass("hidden");
 });
