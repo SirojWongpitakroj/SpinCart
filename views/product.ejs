@@ -14,7 +14,7 @@
         </div>
 
         <!--Product Title and Description-->
-        <div class="flex flex-col items-start p-2 gap-2">
+        <div class="flex flex-col items-start p-2 gap-2 relative w-full">
             <h1 class="text-2xl font-semibold"><%= prod.title %></h1>
             <p class="bg-white rounded-lg p-2"><%= prod.short_description %></p>
             <h2 class="text-xl font-semibold">Description</h2>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="flex flex-col items-end gap-3">
-                    <form action="/cart/add" method="POST" class="flex flex-col items-center gap-3">
+                    <form action="/cart/add" method="POST" class="flex flex-col items-center gap-3" id="add-to-cart-form">
                         <div class="flex items-center rounded-full">
                             <button type="button" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full quantity-btn" data-quantity-action="decrement">-</button>
                             <input type="number" name="quantity" value="1" min="1" readonly class="w-12 text-center appearance-none [appearance:textfield] focus:outline-none 
@@ -48,5 +48,33 @@
         </div>
         
     </section>
+
+    <div id="cart-toast" data-message="<%= locals.cfmes || '' %>" class="fixed z-20 top-6 right-6 max-w-xs w-full bg-green-600 text-white px-4 py-3 rounded-lg shadow-lg opacity-0 pointer-events-none transform translate-x-full transition-all duration-300 ease-in-out">
+        <p class="font-semibold"><%= locals.cfmes %></p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const toast = document.getElementById("cart-toast");
+            if (!toast) return;
+
+            const toastMessage = toast.dataset.message;
+            if (!toastMessage) return;
+
+            const messageEl = toast.querySelector("p");
+            if (messageEl) {
+                messageEl.textContent = toastMessage;
+            }
+
+            toast.classList.remove("opacity-0", "pointer-events-none", "translate-x-full");
+            toast.classList.add("opacity-100", "-translate-x-2");
+
+            const toastDuration = 3000;
+            setTimeout(() => {
+                toast.classList.add("opacity-0", "translate-x-full", "pointer-events-none");
+                toast.classList.remove("opacity-100", "-translate-x-2");
+            }, toastDuration);
+        });
+    </script>
 
 <%- include("partials/footer.ejs") %>

@@ -28,11 +28,13 @@ class DB {
         return row[0];
     };
 
-    async insertCartItems(prod) {
+    async insertCartItems(prod, quantity, user_id) {
         const result = await pool.query(
-            `INSERT INTO cart_items_id(unit_price, quantity, product_id, user_id)
-            VALUES ()`
-        )
+            `INSERT INTO cart_items(unit_price, quantity, product_id, user_id)
+            VALUES (?, ?, ?, ?)`, 
+            [prod.price, quantity, prod.product_id, user_id]
+        );
+        return result.insertId;
     };
 
     async registerUser(username, password_hash, fName, lName, gender, bDate, email, phoneNumber) {
@@ -58,6 +60,12 @@ class DB {
             WHERE email = ?`, [email]
         );
         return result[0];
+    }
+
+    async getReviewsByProductId(pid) {
+        const [result] = await pool.query(
+            `SELECT `
+        )
     }
 };
 

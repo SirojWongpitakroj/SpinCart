@@ -8,7 +8,7 @@
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 
                 <% products.forEach((prod) => { %>
-                    <form action="/product" method="POST" class="bg-white rounded-xl hover:shadow-lg transition product-card h-full">
+                    <form action="/product" method="GET" class="bg-white rounded-xl hover:shadow-lg transition product-card h-full">
                         <!--metadata-->
                         <input type="hidden" name="id" value="<%= prod.product_id %>">
                         <!--Product Card-->
@@ -34,7 +34,7 @@
 
     <!-- Login Overlay Modal (hidden by default) -->
      
-    <div id="login-modal" class="<%= hideLogin %>fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div id="login-modal" class="<%= locals.hideLogin %> fixed inset-0 z-50 flex items-center justify-center bg-black/50">
         <div class="relative w-[95%] max-w-md bg-white rounded-2xl border-2 border-purple-500 p-6 text-center shadow-xl">
             <!-- Logo -->
             <div class="mx-auto mb-4 h-20 w-20 rounded-full overflow-hidden flex items-center justify-center bg-blue-500">

@@ -20,14 +20,6 @@ app.use(session({
     rolling: true
 }))
 
-function isAuthenticated(req, res, next) {
-    if (req.session.user) {
-        next();
-    } else {
-        redirect("/");
-    }
-}
-
 //helper function
 function formatPrice(price) {
     if (price % 1 === 0) {
@@ -45,6 +37,15 @@ async function renderLoginError(res, username) {
     });
 }
 
+//Autheticate
+function isAuthenticated(req, res, next) {
+    if (req.session.user) {
+        next();
+    } else {
+        res.redirect("/");
+    }
+};
+
 
 //main
 app.get("/", async (req, res) => {
@@ -60,28 +61,43 @@ app.get("/", async (req, res) => {
     });
 });
 
-app.post("/product", async (req, res) => {
-    const prodId = req.body.id;
-    const product = await db.getProductById(prodId);
-    product.price = formatPrice(parseFloat(product.price));
+app.get("/product", isAuthenticated, async (req, res) => {
+    const message = req.session.message;
+    delete req.session.message;
 
-    res.render("product.ejs", { prod: product });
-});
-
-app.get("/cart", (req, res) => res.render("cart.ejs"));
-
-app.post("/cart/add", async (req, res) => {
-    const prodId = req.body.id
-    const product = await db.getProductById(prodId);
+    const prodId = parseInt(req.query.id);
+    let product;
+    try {
+        product = await db.getProductById(prodId);
+    } catch(err) {
+        return res.render("/");
+    }
 
     
-    //incomplete
+    product.price = formatPrice(parseFloat(product.price));
+
+    res.render("product.ejs", { prod: product, cfmes: message });
+});
+
+app.get("/cart", isAuthenticated, (req, res) => {
+    res.render("cart.ejs");
+});
+
+app.post("/cart/add", isAuthenticated, async (req, res) => {
+    const prodId = req.body.id;
+    const quantity = req.body.quantity;
+    const product = await db.getProductById(prodId);
+
+    const cart_item_id = await db.insertCartItems(product, quantity, req.session.user.id);
+    
+    req.session.message = quantity > 1 ? "The items have been added to cart" : "The item has been added to cart";
+    res.redirect(`/product?id=${product.product_id}`);
 });
 
 
 
-app.get("/profile", (req, res) => res.render("profile.ejs"));
-app.get("/payment", (req, res) => res.render("payment.ejs"));
+app.get("/profile", isAuthenticated, (req, res) => res.render("profile.ejs"));
+app.get("/payment", isAuthenticated, (req, res) => res.render("payment.ejs"));
 
 app.get("/signup", (req, res) => {
     const error = req.session.error;
@@ -121,7 +137,7 @@ app.post("/signup/confirm", async (req, res) => {
 
     //if valid then bcrypt password
     const hashedPassword = await bcrypt.hash(password, 13);
-    console.log(await db.registerUser(username, hashedPassword, fName, lName, gender, bDate, email, phoneNumber));
+    await db.registerUser(username, hashedPassword, fName, lName, gender, bDate, email, phoneNumber);
     redirect("/");
 })
 
