@@ -37,6 +37,35 @@ class DB {
         return result.insertId;
     };
 
+    async existCartItems(uid, pid) {
+        const [result] = await pool.query(
+            `SELECT * FROM cart_items
+            WHERE user_id = ? AND product_id = ?`,
+            [uid, pid]
+        );
+        return result[0];
+    }
+
+    async updateCartItems(cart_item_id, quantity) {
+        const [result] = await pool.query(
+            `UPDATE cart_items
+            SET quantity = ?
+            WHERE cart_items_id = ?`,
+            [quantity, cart_item_id]
+        );
+        return result
+    }
+
+    async getAllCartItemsByUserId(uid) {
+        const [result] = await pool.query(
+            `SELECT * FROM cart_items ci
+            INNER JOIN products p ON ci.product_id = p.product_id
+            INNER JOIN product_images pi ON p.product_id = pi.product_id 
+            WHERE user_id = ?`, [uid]
+        );
+        return result;
+    }
+
     async registerUser(username, password_hash, fName, lName, gender, bDate, email, phoneNumber) {
         const result = await pool.query(
             `INSERT INTO users(username, password_hash, f_name, l_name, gender, birth_date, email, phone_number)
@@ -66,11 +95,69 @@ class DB {
         const [result] = await pool.query(
             `SELECT `
         )
+    } //incomplete
+
+    async sendQtyUpdate(cart_item_id, qty) {
+        const [result] = await pool.query(
+            `UPDATE cart_items
+            SET quantity = ?
+            WHERE cart_items_id = ?`, [qty, cart_item_id]
+        );
+        return result;
+    };
+
+    async deleteCartItem(cart_item_id) {
+        const result = await pool.query(
+            `DELETE FROM cart_items
+            WHERE cart_items_id = ?`, [cart_item_id]
+        );
+        return result;
+    }
+
+    async updateAddress(uid, addr1, addr2, city, province, country, zipcode) {
+        const [result] = await pool.query(
+            `UPDATE users
+            SET address_line1 = ?,
+                address_line2 = ?,
+                city = ?,
+                province = ?,
+                country = ?,
+                zipcode = ?
+            WHERE user_id = ?`, [addr1, addr2, city, province, country, zipcode, uid]
+        );
+        return uid
+    }
+
+    async updatePayment(uid, creditCardNumber, creditCardFullname, expDate, cvc) {
+        const [result] = await pool.query(
+            `UPDATE users
+             SET credit_card_number = ?,
+                 credit_card_fullname = ?,
+                 exp_date = ?,
+                 cvc = ?
+             WHERE user_id = ?`,
+            [creditCardNumber, creditCardFullname, expDate, cvc, uid]
+        );
+        return uid;
+    }
+
+    async updateUser(uid, username, fName, lName, email, phoneNumber) {
+        const [result] = await pool.query(
+            `UPDATE users
+             SET username = ?,
+                 f_name = ?,
+                 l_name = ?,
+                 email = ?,
+                 phone_number = ?
+             WHERE user_id = ?`,
+            [username, fName, lName, email, phoneNumber, uid]
+        )
+        return uid;
     }
 };
 
 // const database1 = new DB();
-// console.log(await database1.getUserByUsername(""));
+// console.log(await database1.sendQtyUpdate(32, 7));
 
 export default new DB();
 

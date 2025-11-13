@@ -35,7 +35,7 @@
                     <form action="/cart/add" method="POST" class="flex flex-col items-center gap-3" id="add-to-cart-form">
                         <div class="flex items-center rounded-full">
                             <button type="button" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full quantity-btn" data-quantity-action="decrement">-</button>
-                            <input type="number" name="quantity" value="1" min="1" readonly class="w-12 text-center appearance-none [appearance:textfield] focus:outline-none 
+                            <input type="number" name="quantity" value="1" min="1" readonly class="w-12 pl-4 text-center appearance-none [appearance:textfield] focus:outline-none 
                             no-spinner quantity-input">
                             <button type="button" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full quantity-btn" data-quantity-action="increment">+</button>
                         </div>
@@ -49,7 +49,7 @@
         
     </section>
 
-    <div id="cart-toast" data-message="<%= locals.cfmes || '' %>" class="fixed z-20 top-6 right-6 max-w-xs w-full bg-green-600 text-white px-4 py-3 rounded-lg shadow-lg opacity-0 pointer-events-none transform translate-x-full transition-all duration-300 ease-in-out">
+    <div id="cart-toast" data-message="<%= locals.cfmes || '' %>" class="fixed z-20 top-20 right-6 max-w-xs w-full bg-green-600 text-white px-4 py-3 rounded-lg shadow-lg opacity-0 pointer-events-none transform translate-x-full transition-all duration-300 ease-in-out">
         <p class="font-semibold"><%= locals.cfmes %></p>
     </div>
 

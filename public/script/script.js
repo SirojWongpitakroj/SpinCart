@@ -1,4 +1,3 @@
-
 //Hamburger DropDown Animation
 $("#hamburger-menu").click(function() {
     $("#dropdown-menu").toggle();
@@ -80,4 +79,179 @@ $("#clear-filter").click(function() {
 
 $("#dismiss-error").click(function() {
     $("#error-overlay").addClass("hidden");
+});
+
+//debouncing
+const debouncedSendQtyUpdate = debounce(sendQtyUpdate, 500);
+
+$(".qty-btn").click(async function() {
+
+    const item_id = this.dataset.itemId;
+    const unit_price = parseFloat(this.dataset.price);
+    const subtotal = parseFloat($("#subtotal").text().slice(1));
+    const $input = $(this).siblings(".quantity-input");
+    let qty = parseInt($input.val());
+
+    //qty Update
+    let sum;
+    if (this.dataset.quantityAction === "increment") {
+        qty++;
+        sum = subtotal + unit_price;
+    } else if(this.dataset.quantityAction === "decrement" && qty > 1) {
+        qty--;
+        sum = subtotal - unit_price;
+
+    }else {
+        return
+    }
+
+    $input.val(qty);
+    console.log(qty)
+
+    //subtotal and total update
+    $("#subtotal").text("฿" + sum);
+    $("#total").text("฿" + (sum + 100));
+
+    debouncedSendQtyUpdate(item_id, qty);
+});
+
+function debounce(func, delay) {
+    let timer;
+    return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    };
+}
+
+async function sendQtyUpdate(item_id, qty) {
+    try {
+        const response = await fetch("/cart/qtyUpdate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ item_id, qty })
+        });
+    } catch(err) {
+        console.error(err);
+    }
+}
+
+//delete cart_item
+$(".remove-btn").click(async function() {
+    $button = $(this);
+    item_id = $button.data("itemId");
+
+    try {
+        const response = await fetch("/cart/delete", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ item_id })
+        });
+
+        const card = $button.closest(".relative");
+        card.remove();
+    } catch(err) {
+        console.error(err.message);
+    }
+        
+});
+
+//dismiss profile warning
+$("#profile-alert-dismiss").click(function() {
+    $("#profile-alert-overlay").addClass("hidden");
+});
+
+//address put request
+$("#address-btn").click(async function() {
+    const addressline1 = $("#addressline1").val().trim();
+    const addressline2 = $("#addressline2").val().trim();
+    const city = $("#city").val().trim();
+    const province = $("#province").val().trim();
+    const zipcode = $("#zipcode").val().trim();
+    const country = $("#country").val().trim();
+
+    const uid = $("#uid").val();
+
+    //check all field required
+    if (!addressline1 || !city || !province || !zipcode || !country) return window.location.href = "/profile";
+
+    //zipcode length validation
+    if(zipcode.length !== 5) {
+        return window.location.href = "/profile";
+    }
+    
+    try {
+        await axios.put(`/profile/address/${uid}`, {
+            address_line1: addressline1,
+            address_line2: addressline2,
+            city,
+            province,
+            country,
+            zipcode
+        });
+        return window.location.href = "/profile";
+    } catch (err) {
+        console.error(err);
+        return window.location.href = "/profile";
+    }
+});
+
+$("#payment-btn").click(async function() {
+    const credit_card_number = $("#cardNumber").val().trim();
+    const credit_card_fullname = $("#fullName").val().trim();
+    const exp_date = $("#expiryDate").val().trim();
+    const cvc = $("#cvc").val().trim();
+
+    const uid = $("#uid").val();
+
+    //check all field required
+    if (!credit_card_number || !credit_card_fullname || !exp_date || !cvc) return window.location.href = "/profile";
+
+    //credit_card_num, exp_date, cvc length validation
+    if (cvc.length !== 3 || credit_card_number.length !== 16 || exp_date.length > 5) {
+        return window.location.href = "/profile";
+    }
+
+    try {
+        await axios.put(`/profile/payment/${uid}`, {
+            credit_card_number,
+            credit_card_fullname,
+            exp_date,
+            cvc
+        });
+        return window.location.href = "/profile";
+    } catch (err) {
+        console.error(err);
+        return window.location.href = "/profile";
+    }
+});
+
+$("#edit-profile-btn").click(async function() {
+    const username = $("#profile-username").val().trim();
+    const fullNameParts = $("#profile-fullname").val().trim().split(/\s+/);
+    const email = $("#profile-email").val().trim();
+    const phoneNumber = $("#profile-phoneNumber").val().trim();
+
+    const uid = $("#uid").val();
+
+    if (fullNameParts.length < 2) {
+        return window.location.href = "/profile";
+    }
+
+    const fName = fullNameParts.slice(0, -1).join(" ");
+    const lName = fullNameParts.slice(-1).join("");
+
+    //check all field required
+    if (!username || !fName || !lName || !email || !phoneNumber) return window.location.href = "/profile";
+
+    try {
+        await axios.put(`/profile/user/${uid}`, {
+            username, fName, lName, email, phoneNumber
+        });
+        return window.location.href = "/profile";
+    } catch (err) {
+        console.error(err);
+        return window.location.href = "/profile";
+    }
 });

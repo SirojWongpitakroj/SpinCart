@@ -7,101 +7,50 @@
         </div>
 
         <!-- Content -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 gap-6 lg:flex lg:justify-center lg:gap-10">
             <!-- Cart items -->
-            <div class="lg:col-span-2 space-y-4">
-                <!-- Item 1 -->
-                <div class="relative flex gap-4 bg-white rounded-xl shadow-sm p-4 items-center">
-                    <input type="checkbox" aria-label="Select item" class="shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 appearance-none cursor-pointer checked:bg-blue-600 focus:outline-none" />
-                    <img src="product_images/Smart-Air-Purifier.png" alt="Smart Air Purifier" class="w-24 h-24 rounded-md object-contain bg-gray-100">
-                    <div class="flex-1">
-                        <a href="#" class="text-sm font-semibold text-blue-700">Smart Air Purifier</a>
-                        <p class="mt-1 text-xs text-gray-700">Air Purifiers for Bedroom Home Dorm, 3-in-1 Filter Cleaner with Fragrance Sponge for Better Sleep, Filters Smoke, Allergies, Pet Dander, Odor, Dust</p>
-                        <div class="mt-2 flex items-center gap-2 text-sm">
-                            <span class="font-semibold">฿3,998</span>
+            <div class="lg:flex-[2] lg:w-full lg:max-w-3xl space-y-4">
+                <% items.forEach(item => { %>
+                    <!-- Item -->
+                    <div class="relative flex gap-4 bg-white rounded-xl shadow-sm p-4 items-center">
+                    <!-- <input type="checkbox" aria-label="Select item" class="shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 appearance-none cursor-pointer checked:bg-blue-600 focus:outline-none item-checkbox" /> -->
+                        <img src="<%=item.url%>" alt="Smart Air Purifier" class="w-24 h-24 rounded-md object-contain bg-gray-100">
+                        <div class="flex-1">
+                            <a href="#" class="text-lg font-semibold text-blue-700"><%=item.title%></a>
+                            <p class="mt-1 text-sm text-gray-700"><%= item.short_description %></p>
+                            <div class="mt-2 flex items-center gap-2 text-sm">
+                                <span class="font-semibold">฿<%=item.price%></span>
+                            </div>
+                        </div>
+                        <button class="absolute top-3 right-4 text-gray-400 hover:text-gray-600 remove-btn" aria-label="remove" data-item-id="<%= item.cart_items_id %>">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 7h12M9 7v10m6-10v10M4 7h16l-1 14H5L4 7zM9 7l1-2h4l1 2"/></svg>
+                        </button>
+                        <!-- qty controls -->
+                        <div class="absolute bottom-3 right-4">
+                            <div class="flex items-center rounded-full">
+                                <button type="button" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full qty-btn" data-quantity-action="decrement" data-item-id="<%= item.cart_items_id %>" data-price="<%= item.unit_price %>">-</button>
+                                <input type="number" name="quantity" value="<%= item.quantity %>" min="1" readonly class="w-12 text-center pl-4 appearance-none [appearance:textfield] focus:outline-none 
+                                no-spinner quantity-input">
+                                <button type="button" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full qty-btn" data-quantity-action="increment" data-item-id="<%= item.cart_items_id %>" data-price="<%= item.unit_price %>">+</button>
+                            </div>
                         </div>
                     </div>
-                    <button class="shrink-0 text-gray-400 hover:text-gray-600" aria-label="remove">
-                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 7h12M9 7v10m6-10v10M4 7h16l-1 14H5L4 7zM9 7l1-2h4l1 2"/></svg>
-                    </button>
-                    <!-- qty controls -->
-                    <div class="absolute bottom-3 right-4">
-                        <div class="quantity-control flex items-center gap-2 bg-gray-100 rounded-full px-2 py-1 select-none" data-item="1">
-                            <button class="qty-btn w-7 h-7 flex items-center justify-center rounded-full bg-white text-gray-700 hover:bg-gray-200" data-action="decrease" aria-label="decrease">−</button>
-                            <span class="qty-value min-w-6 text-center text-sm font-medium">1</span>
-                            <button class="qty-btn w-7 h-7 flex items-center justify-center rounded-full bg-white text-gray-700 hover:bg-gray-200" data-action="increase" aria-label="increase">+</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 2 -->
-                <div class="relative flex gap-4 bg-white rounded-xl shadow-sm p-4 items-center">
-                    <input type="checkbox" aria-label="Select item" class="shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 appearance-none cursor-pointer checked:bg-blue-600 focus:outline-none" />
-                    <img src="product_images/Wireless_Keyboard.png" alt="Wireless Keyboard" class="w-24 h-24 rounded-md object-contain bg-gray-100">
-                    <div class="flex-1">
-                        <a href="#" class="text-sm font-semibold text-blue-700 ">Wireless Keyboard</a>
-                        <p class="mt-1 text-xs text-gray-700">Wireless Keyboard for Windows, 2.4 GHz Wireless, Full‑Size, Number Pad, 8 Multimedia Keys, 2‑Year Battery Life, Compatible with PC, Laptop.</p>
-                        <div class="mt-2 flex items-center gap-2 text-sm">
-                            <span class="text-gray-900 font-semibold">฿950</span>
-                        </div>
-                    </div>
-                    <button class="shrink-0 text-gray-400 hover:text-gray-600" aria-label="remove">
-                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 7h12M9 7v10m6-10v10M4 7h16l-1 14H5L4 7zM9 7l1-2h4l1 2"/></svg>
-                    </button>
-                    <!-- qty controls -->
-                    <div class="absolute bottom-3 right-4">
-                        <div class="quantity-control flex items-center gap-2 bg-gray-100 rounded-full px-2 py-1 select-none" data-item="2">
-                            <button class="qty-btn w-7 h-7 flex items-center justify-center rounded-full bg-white text-gray-700 hover:bg-gray-200" data-action="decrease" aria-label="decrease">−</button>
-                            <span class="qty-value min-w-6 text-center text-sm font-medium">1</span>
-                            <button class="qty-btn w-7 h-7 flex items-center justify-center rounded-full bg-white text-gray-700 hover:bg-gray-200" data-action="increase" aria-label="increase">+</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 3 -->
-                <div class="relative flex gap-4 bg-white rounded-xl shadow-sm p-4 items-center">
-                    <input type="checkbox" aria-label="Select item" class="shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 appearance-none cursor-pointer checked:bg-blue-600 focus:outline-none" />
-                    <img src="product_images/Vacuum_Cleaner.png" alt="Vacuum Cleaner" class="w-24 h-24 rounded-md object-contain bg-gray-100">
-                    <div class="flex-1">
-                        <a href="#" class="text-sm font-semibold text-blue-700 ">Vacuum Cleaner</a>
-                        <p class="mt-1 text-xs text-gray-700">Vacuum Cleaner Description</p>
-                        <div class="mt-2 flex items-center gap-2 text-sm">
-                            <span class="font-semibold">฿2,500</span>
-                        </div>
-                    </div>
-                    <button class="shrink-0 text-gray-400 hover:text-gray-600" aria-label="remove">
-                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 7h12M9 7v10m6-10v10M4 7h16l-1 14H5L4 7zM9 7l1-2h4l1 2"/></svg>
-                    </button>
-                    <!-- qty controls -->
-                    <div class="absolute bottom-3 right-4">
-                        <div class="quantity-control flex items-center gap-2 bg-gray-100 rounded-full px-2 py-1 select-none" data-item="3">
-                            <button class="qty-btn w-7 h-7 flex items-center justify-center rounded-full bg-white text-gray-700 hover:bg-gray-200" data-action="decrease" aria-label="decrease">−</button>
-                            <span class="qty-value min-w-6 text-center text-sm font-medium">1</span>
-                            <button class="qty-btn w-7 h-7 flex items-center justify-center rounded-full bg-white text-gray-700 hover:bg-gray-200" data-action="increase" aria-label="increase">+</button>
-                    </div>
-                </div>
-            </div>
-            </div>
+                <% }); %>
 
             <!-- Summary -->
-            <aside class="lg:col-span-1">
-                <div class="bg-white rounded-xl shadow-sm p-5 sticky top-24">
+            <aside class="lg:flex-[2] lg:w-full lg:max-w-3xl">
+                <div class="bg-white rounded-xl shadow-sm p-5 lg:sticky lg:top-24">
                     <h2 class="text-lg font-semibold text-gray-900 mb-4">Payment Details</h2>
                     <div class="space-y-2 text-sm">
-                        <div class="flex justify-between"><span class="text-gray-600">Subtotal</span><span class="text-gray-900">฿26,170</span></div>
+                        <div class="flex justify-between"><span class="text-gray-600">Subtotal</span><span id="subtotal" class="text-gray-900">฿<%= locals.subtotal %></span></div>
                         <div class="flex justify-between"><span class="text-gray-600">Shipping fee</span><span class="text-gray-900">฿100</span></div>
                         <hr class="my-3">
-                        <div class="flex justify-between text-base font-semibold"><span>Total Payment</span><span>฿26,270</span></div>
+                        <div class="flex justify-between text-base font-semibold"><span>Total Payment</span><span id="total">฿<%= locals.subtotal + 100 %></span></div>
                     </div>
                     <a href="/payment" class="block text-center mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded-full">Place Order</a>
                 </div>
             </aside>
         </div>
     </section>
-        
-
-
-
-
 
     <%- include("partials/footer.ejs") %>
