@@ -106,7 +106,6 @@ $(".qty-btn").click(async function() {
     }
 
     $input.val(qty);
-    console.log(qty)
 
     //subtotal and total update
     $("#subtotal").text("฿" + sum);
@@ -140,7 +139,16 @@ async function sendQtyUpdate(item_id, qty) {
 //delete cart_item
 $(".remove-btn").click(async function() {
     $button = $(this);
-    item_id = $button.data("itemId");
+    const item_id = $button.data("itemId");
+    const unit_price = parseFloat($button.data("price"));
+    const qty = parseInt($button.data("qty"), 10);
+    const subtotal = parseFloat($("#subtotal").text().slice(1));
+
+    const total_deleted = unit_price * qty;
+
+    //subtract deleted item's price
+    $("#subtotal").text("฿" + (subtotal - total_deleted));
+    $("#total").text("฿" + (subtotal - total_deleted + 100));
 
     try {
         const response = await fetch("/cart/delete", {

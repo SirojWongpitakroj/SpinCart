@@ -72,6 +72,20 @@ app.get("/", async (req, res) => {
     });
 });
 
+app.post("/search", isAuthenticated, async (req, res) => {
+    const searchWord = req.body.searchWord;
+    const products = await db.searchProducts(searchWord);
+
+    let ishidden = "";
+    if (req.session.user) {
+       ishidden = "hidden"; 
+    } else {
+        ishidden = ""
+    } 
+
+    res.render("home.ejs", { products: products, hideLogin: ishidden });
+});
+
 app.get("/product", isAuthenticated, async (req, res) => {
     const message = req.session.message;
     delete req.session.message;

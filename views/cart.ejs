@@ -22,7 +22,7 @@
                                 <span class="font-semibold">฿<%=item.price%></span>
                             </div>
                         </div>
-                        <button class="absolute top-3 right-4 text-gray-400 hover:text-gray-600 remove-btn" aria-label="remove" data-item-id="<%= item.cart_items_id %>">
+                        <button class="absolute top-3 right-4 text-gray-400 hover:text-gray-600 remove-btn" aria-label="remove" data-item-id="<%= item.cart_items_id %>" data-price="<%= item.unit_price %>" data-qty="<%= item.quantity %>">
                             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 7h12M9 7v10m6-10v10M4 7h16l-1 14H5L4 7zM9 7l1-2h4l1 2"/></svg>
                         </button>
                         <!-- qty controls -->

@@ -154,10 +154,18 @@ class DB {
         )
         return uid;
     }
+
+    async searchProducts(title) {
+        const [result] = await pool.query(
+            `SELECT * FROM products p
+            INNER JOIN product_images pi ON p.product_id = pi.product_id
+            WHERE title LIKE ?`, [`%${title}%`]);
+        return result;
+    }
 };
 
 // const database1 = new DB();
-// console.log(await database1.sendQtyUpdate(32, 7));
+// console.log(await database1.searchProducts("Air"));
 
 export default new DB();
 
