@@ -1,0 +1,219 @@
+<%- include("partials/header.ejs") %>
+
+<style>
+    .star-rating {
+        display: inline-flex;
+        gap: 0.25rem;
+        cursor: pointer;
+    }
+    
+    .star {
+        font-size: 1.5rem;
+        color: #d1d5db;
+        transition: color 0.2s;
+        user-select: none;
+    }
+    
+    .star.active {
+        color: #fbbf24;
+    }
+    
+    .star:hover {
+        color: #fbbf24;
+    }
+</style>
+
+<section class="pt-16">
+    <!-- Review Header -->
+    <div class="w-full bg-[#ffd174]">
+        <h1 class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-12 flex items-center justify-center text-lg font-semibold text-gray-900">Review Your Purchase</h1>
+    </div>
+
+    <!-- Content -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <p class="text-gray-600 mb-6 text-center">Please share your experience with the products you purchased.</p>
+        
+        <!-- Review Form -->
+        <form id="review-form" class="space-y-6">
+            <!-- Product Reviews -->
+            <div id="products-container" class="space-y-6">
+                <% if (typeof items !== 'undefined' && items && items.length > 0) { %>
+                    <% items.forEach((item, index) => { %>
+                        <div class="product-review bg-white rounded-xl shadow-sm p-6 lg:p-8" data-product-id="<%= item.product_id || item.id || index %>">
+                            <!-- Product Info -->
+                            <div class="flex gap-4 mb-6">
+                                <img src="<%= item.url %>" alt="<%= item.title %>" class="w-24 h-24 lg:w-32 lg:h-32 rounded-lg object-contain bg-gray-100">
+                                <div class="flex-1">
+                                    <h3 class="text-lg lg:text-xl font-semibold text-gray-900 mb-2"><%= item.title %></h3>
+                                    <p class="text-sm text-gray-600 mb-2"><%= item.short_description %></p>
+                                    <div class="text-sm text-gray-700">
+                                        <span class="font-medium">Price: ฿<%= (item.price || item.unit_price) * (item.quantity || 1) %></span>
+                                        <% if (item.quantity) { %>
+                                            <span class="ml-4">Quantity: <%= item.quantity %></span>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Rating Section -->
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-3">Rate this product</label>
+                                <div class="star-rating" data-rating="0">
+                                    <span class="star" data-value="1">★</span>
+                                    <span class="star" data-value="2">★</span>
+                                    <span class="star" data-value="3">★</span>
+                                    <span class="star" data-value="4">★</span>
+                                    <span class="star" data-value="5">★</span>
+                                </div>
+                                <input type="hidden" name="rating-<%= item.product_id || item.id || index %>" class="rating-input" value="0">
+                                <p class="text-xs text-gray-500 mt-2 rating-text">Click to rate</p>
+                            </div>
+                            
+                            <!-- Comment Section -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-3">Your Review</label>
+                                <textarea 
+                                    name="comment-<%= item.product_id %>" 
+                                    class="review-comment w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none" 
+                                    rows="4" 
+                                    placeholder="Share your thoughts about this product... (optional)"></textarea>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <!-- Placeholder when no items available -->
+                    <div class="bg-white rounded-xl shadow-sm p-8 text-center">
+                        <p class="text-gray-600 mb-4">No products to review at this time.</p>
+                        <a href="/" class="text-blue-600 hover:text-blue-700 font-medium">Return to Home</a>
+                    </div>
+                <% } %>
+            </div>
+            
+            <!-- Submit Button -->
+            <% if (typeof items !== 'undefined' && items && items.length > 0) { %>
+                <div class="flex justify-center pt-6">
+                    <button 
+                        type="submit" 
+                        class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 lg:py-3.5 px-12 lg:px-16 rounded-full transition-colors duration-200 text-base lg:text-lg">
+                        Submit Reviews
+                    </button>
+                </div>
+            <% } %>
+        </form>
+    </div>
+</section>
+
+<%- include("partials/footer.ejs") %>
+
+<script>
+    $(document).ready(function() {
+        // Star Rating Functionality
+        $('.star-rating').each(function() {
+            const $ratingContainer = $(this);
+            const $stars = $ratingContainer.find('.star');
+            const $ratingInput = $ratingContainer.siblings('.rating-input');
+            const $ratingText = $ratingContainer.siblings('.rating-text');
+            
+            // Click on star
+            $stars.on('click', function() {
+                const rating = $(this).data('value');
+                $ratingInput.val(rating);
+                
+                // Update visual display
+                $stars.each(function() {
+                    if ($(this).data('value') <= rating) {
+                        $(this).addClass('active');
+                    } else {
+                        $(this).removeClass('active');
+                    }
+                });
+                
+                // Update text
+                const ratingLabels = {
+                    1: 'Poor',
+                    2: 'Fair',
+                    3: 'Good',
+                    4: 'Very Good',
+                    5: 'Excellent'
+                };
+                $ratingText.text(ratingLabels[rating] || 'Click to rate');
+            });
+            
+            // Hover effect
+            $stars.on('mouseenter', function() {
+                const hoverValue = $(this).data('value');
+                $stars.each(function() {
+                    if ($(this).data('value') <= hoverValue) {
+                        $(this).css('color', '#fbbf24');
+                    } else {
+                        $(this).css('color', '#d1d5db');
+                    }
+                });
+            });
+            
+            $ratingContainer.on('mouseleave', function() {
+                const currentRating = parseInt($ratingInput.val()) || 0;
+                $stars.each(function() {
+                    if ($(this).data('value') <= currentRating) {
+                        $(this).css('color', '#fbbf24');
+                    } else {
+                        $(this).css('color', '#d1d5db');
+                    }
+                });
+            });
+        });
+        
+        // Form Submission
+        $('#review-form').on('submit', function(e) {
+            e.preventDefault();
+            
+            const reviews = [];
+            let hasRating = false;
+            
+            $('.product-review').each(function() {
+                const $product = $(this);
+                const productId = $product.data('product-id');
+                const rating = parseInt($product.find('.rating-input').val()) || 0;
+                const comment = $product.find('.review-comment').val().trim();
+                
+                if (rating > 0) {
+                    hasRating = true;
+                }
+                
+                reviews.push({
+                    productId: productId,
+                    rating: rating,  // 0-5
+                    comment: comment
+                });
+            });
+            
+            // Validation: At least one product must have a rating
+            if (!hasRating) {
+                alert('Please rate at least one product before submitting.');
+                return;
+            }
+            
+            // Send reviews to server
+            fetch('/review/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ reviews: reviews })
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Thank you for your reviews! Your feedback has been submitted.');
+                    window.location.href = '/';
+                } else {
+                    alert('There was an error submitting your reviews. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting reviews:', error);
+                alert('There was an error submitting your reviews. Please try again.');
+            });
+        });
+    });
+</script>
+

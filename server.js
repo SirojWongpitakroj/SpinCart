@@ -257,9 +257,50 @@ app.get("/payment", isAuthenticated, completePersonalInfo, async (req, res) => {
     res.render("payment.ejs", { items, user });
 });
 
-app.post("/checkout", isAuthenticated, (req, res) => {
-    res.render("review.ejs");
+app.get("/review", isAuthenticated, async (req, res) => {
+    const arrOfOrderItemsId = req.session.orderItemsIds || [];
+
+    const items = await db.getOrderItemsProduct(arrOfOrderItemsId);
+
+    res.render("review.ejs", { items });
+});
+
+app.post("/review/submit", isAuthenticated, async (req, res) => {
+    const user_id = req.session.user.id;
+    const reviews = req.body.reviews || [];
+    
+    try {
+        const insertedIds = await db.insertReview(user_id, reviews);
+        res.json({ success: true, message: 'Reviews submitted successfully', insertedIds });
+    } catch (error) {
+        console.error('Error inserting reviews:', error);
+        res.status(500).json({ success: false, message: 'Error submitting reviews' });
+    }
+});
+
+app.post("/checkout", isAuthenticated, async (req, res) => {
+    const subtotal = req.body.subtotal;
+    const shipping_fee = 100;
+    const total = subtotal + shipping_fee;
+    const user_id = req.session.user.id;
+    //insert payment
+    const paymentId = await db.insertPayment(total);
+
+    //insert order
+    const orderId = await db.insertOrder(total, shipping_fee, subtotal, user_id, paymentId);
+    
+    const cart_items = await db.getAllCartItemsByUserId(req.session.user.id);
+    //insert order_items
+    const arrOfOrderItemsId =  await db.insertOrderItems(orderId, cart_items);
+
+    //delete cart_items
+    await db.deleteCartFromUser(user_id);
+
+    //redirect to review
+    req.session.orderItemsIds = arrOfOrderItemsId;
+    res.redirect('/review');
 })
+
 
 app.get("/signup", (req, res) => {
     const error = req.session.error;

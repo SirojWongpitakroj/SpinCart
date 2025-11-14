@@ -292,13 +292,17 @@ $("#edit-profile-btn").click(async function() {
 $(document).ready(function() {
     const $checkoutBtn = $('#checkout-btn');
     const $successPopup = $('#success-popup');
+    const $checkoutForm = $checkoutBtn.closest('form');
     
     // Only bind if elements exist (payment page only)
-    if ($checkoutBtn.length && $successPopup.length) {
+    if ($checkoutBtn.length && $successPopup.length && $checkoutForm.length) {
         const $popupContent = $successPopup.find('div').first();
+        let formSubmitted = false;
         
-        $checkoutBtn.on('click', function(e) {
-            e.preventDefault(); //no reload
+        $checkoutForm.on('submit', function(e) {
+            if (formSubmitted) return;
+            
+            e.preventDefault(); // Prevent default form submission
             
             // Show popup
             $successPopup.removeClass('opacity-0 invisible');
@@ -306,13 +310,35 @@ $(document).ready(function() {
             $popupContent.removeClass('scale-95');
             $popupContent.addClass('scale-100');
             
-            // Hide popup after 5 seconds
+            // Submit form after showing popup briefly
             setTimeout(function() {
-                $successPopup.removeClass('opacity-100 visible');
-                $successPopup.addClass('opacity-0 invisible');
-                $popupContent.removeClass('scale-100');
-                $popupContent.addClass('scale-95');
-            }, 5000);
+                formSubmitted = true;
+                // Get subtotal from the form
+                const subtotal = $checkoutForm.find('input[name="subtotal"]').val();
+                
+                // Prepare request body with subtotal
+                const requestBody = {
+                    subtotal: subtotal ? parseFloat(subtotal) : 0
+                };
+                
+                // Submit the form using fetch
+                fetch('/checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                })
+                .then(response => {
+                    // Redirect to review page (or wherever the server redirects)
+                    window.location.href = '/review';
+                })
+                .catch(error => {
+                    console.error('Error submitting checkout:', error);
+                    // Still redirect on error
+                    window.location.href = '/review';
+                });
+            }, 1000); // Show popup for 1 second before submitting
         });
     }
 });

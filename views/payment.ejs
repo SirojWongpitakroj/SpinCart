@@ -50,7 +50,7 @@
                 </div>
 
                 <!-- Credit Card Section -->
-                <div class="bg-white rounded-xl shadow-sm p-6 lg:p-8">
+                <form action="/checkout" method="POST" class="bg-white rounded-xl shadow-sm p-6 lg:p-8">
                     <h2 class="text-lg lg:text-xl font-semibold text-gray-900 mb-4 lg:mb-6">Credit Card</h2>
                     <div class="space-y-5 lg:space-y-6">
                         <!-- Card Number -->
@@ -91,6 +91,7 @@
                                 const shippingFee = 100;
                                 const total = subtotal + shippingFee;
                             %>
+                            <input type="hidden" name="subtotal" value="<%= subtotal %>">
                             <div class="flex justify-between text-sm lg:text-base">
                                 <span class="text-gray-600">Subtotal</span>
                                 <span class="text-gray-900 font-medium">฿<%= subtotal.toFixed(2) %></span>
@@ -109,11 +110,11 @@
                     
                     <!-- Checkout Button -->
                     <div class="flex justify-end mt-8 lg:mt-10">
-                        <button id="checkout-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 lg:py-3.5 px-8 lg:px-10 rounded-full transition-colors duration-200 text-base lg:text-lg">
+                        <button type="submit" id="checkout-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 lg:py-3.5 px-8 lg:px-10 rounded-full transition-colors duration-200 text-base lg:text-lg">
                             Checkout
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </section>

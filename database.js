@@ -97,6 +97,63 @@ class DB {
         )
     } //incomplete
 
+    // async getLatestOrder(uid) {
+    //     const [result] = await pool.query(
+    //         `SELECT * FROM orders o
+    //         INNER JOIN users u ON o.user_id = u.user_id
+    //         INNER JOIN order_items oi ON o.order_id = oi.order_id
+    //         INNER JOIN products p ON oi.product_id = p.product_id
+    //         INNER JOIN product_images pi ON p.product_id = pi.product_id
+    //         WHERE user_id = ?
+    //         ORDER BY o.placed_at DESC
+    //         LIMIT 1`, [uid]
+    //     );
+    // };
+
+    async insertOrder(total, shipping_fee, subtotal, uid, payment_id) {
+        const [result] = await pool.query(
+            `INSERT INTO orders(total, shipping_fees, subtotal, status, user_id, payment_id)
+            VALUES(?, ?, ?, "completed", ?, ?)`,
+            [total, shipping_fee, subtotal, uid, payment_id]
+        );
+        return result.insertId;
+    }
+
+    async insertOrderItems(orderId, cartItems) {
+        // Insert all order items from cart items
+        var arrOfOrderItemsId = [];
+
+        let result;
+        let line_total;
+        for (const item of cartItems) {
+            line_total = item.price * item.quantity;
+            [result] = await pool.query(
+                `INSERT INTO order_items(quantity, unit_price, line_total, order_id, product_id)
+                VALUES (?, ?, ?, ?, ?)`,
+                [item.quantity, item.price, line_total, orderId, item.product_id]
+            );
+            arrOfOrderItemsId.push(result.insertId);
+        }
+        return arrOfOrderItemsId;
+    }
+
+    async deleteCartFromUser(uid) {
+        const result = await pool.query(
+            `DELETE FROM cart_items
+            WHERE user_id = ?`, [uid]
+        );
+        return true;
+    }
+
+    async insertPayment(amount) {
+        const [result] = await pool.query(
+            `INSERT INTO payment(status, amount)
+            VALUES("completed", ?)`, [amount]
+        );
+
+        return result.insertId;
+    }
+
     async sendQtyUpdate(cart_item_id, qty) {
         const [result] = await pool.query(
             `UPDATE cart_items
@@ -179,6 +236,50 @@ class DB {
         );
         return results;
     }
+
+    async getOrderItemsProduct(order_items_ids) {
+        if (!order_items_ids || order_items_ids.length === 0) {
+            return [];
+        }
+        
+        // Create placeholders for IN clause (?, ?, ?, ...)
+        const placeholders = order_items_ids.map(() => '?').join(',');
+        
+        const [result] = await pool.query(
+            `SELECT * FROM order_items oi
+            INNER JOIN products p ON oi.product_id = p.product_id
+            INNER JOIN product_images pi ON p.product_id = pi.product_id
+            WHERE oi.order_items_id IN (${placeholders})`,
+            order_items_ids
+        );
+        
+        return result;
+    }
+
+    async insertReview(user_id, reviews) {
+        if (!reviews || reviews.length === 0) {
+            return [];
+        }
+        
+        const insertedIds = [];
+        
+        for (const review of reviews) {
+            const { productId, rating, comment } = review;
+            
+            // Only insert if rating > 0 (user actually rated the product)
+            const [result] = await pool.query(
+                `INSERT INTO reviews(rating, comment, product_id, user_id)
+                VALUES (?, ?, ?, ?)`,
+                [rating, comment || '', productId, user_id]
+            );
+            insertedIds.push(result.insertId);
+        }
+        
+        return insertedIds;
+    }
 };
+
+// const db1 = new DB();
+// console.log(await db1.insertPayment(3000));
 
 export default new DB();
