@@ -69,10 +69,10 @@ function isAuthenticated(req, res, next) {
 async function completePersonalInfo(req, res, next) {
     const u = await db.getUserByUsername(req.session.user.username);
     if (u.address_line1 && u.city && u.province && u.zipcode && u.country && u.credit_card_number && u.cvc && u.exp_date) {
-        next();
+        return next();
     }
     req.session.incompleteForm = true;
-    res.redirect("/profile");
+    return res.redirect("/profile");
 };
 
 //main
@@ -131,7 +131,7 @@ app.get("/product", isAuthenticated, async (req, res) => {
     try {
         product = await db.getProductById(prodId);
     } catch(err) {
-        return res.render("/");
+        return res.redirect("/");
     }
 
     
@@ -245,7 +245,21 @@ app.put("/profile/user/:id", isAuthenticated, async (req, res) => {
     }
 });
 
-app.get("/payment", isAuthenticated, completePersonalInfo, (req, res) => res.render("payment.ejs"));
+app.get("/payment", isAuthenticated, completePersonalInfo, async (req, res) => {
+    
+    const items = await db.getAllCartItemsByUserId(req.session.user.id);
+    const user = await db.getUserByUsername(req.session.user.username);
+
+    items.forEach(item => {
+        item.price = formatPrice(item.price);
+    });
+
+    res.render("payment.ejs", { items, user });
+});
+
+app.post("/checkout", isAuthenticated, (req, res) => {
+    res.render("review.ejs");
+})
 
 app.get("/signup", (req, res) => {
     const error = req.session.error;
@@ -286,7 +300,7 @@ app.post("/signup/confirm", async (req, res) => {
     //if valid then bcrypt password
     const hashedPassword = await bcrypt.hash(password, 13);
     await db.registerUser(username, hashedPassword, fName, lName, gender, bDate, email, phoneNumber);
-    redirect("/");
+    res.redirect("/");
 })
 
 app.post("/login", async (req, res) => {

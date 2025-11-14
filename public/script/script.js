@@ -287,3 +287,32 @@ $("#edit-profile-btn").click(async function() {
         return window.location.href = "/profile";
     }
 });
+
+// Checkout button popup handler
+$(document).ready(function() {
+    const $checkoutBtn = $('#checkout-btn');
+    const $successPopup = $('#success-popup');
+    
+    // Only bind if elements exist (payment page only)
+    if ($checkoutBtn.length && $successPopup.length) {
+        const $popupContent = $successPopup.find('div').first();
+        
+        $checkoutBtn.on('click', function(e) {
+            e.preventDefault(); //no reload
+            
+            // Show popup
+            $successPopup.removeClass('opacity-0 invisible');
+            $successPopup.addClass('opacity-100 visible');
+            $popupContent.removeClass('scale-95');
+            $popupContent.addClass('scale-100');
+            
+            // Hide popup after 5 seconds
+            setTimeout(function() {
+                $successPopup.removeClass('opacity-100 visible');
+                $successPopup.addClass('opacity-0 invisible');
+                $popupContent.removeClass('scale-100');
+                $popupContent.addClass('scale-95');
+            }, 5000);
+        });
+    }
+});
