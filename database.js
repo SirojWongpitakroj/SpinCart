@@ -162,12 +162,23 @@ class DB {
             WHERE title LIKE ?`, [`%${title}%`]);
         return result;
     }
+
+    async getAllCategories() {
+        const [results] = await pool.query(
+            `SELECT DISTINCT category FROM products`
+        );
+        return results;
+    }
+
+    async getProductsByCategory(category) {
+        const [results] = await pool.query(
+            `SELECT * FROM products p
+             INNER JOIN product_images pi ON p.product_id = pi.product_id
+             WHERE p.category = ?`,
+            [category]
+        );
+        return results;
+    }
 };
 
-// const database1 = new DB();
-// console.log(await database1.searchProducts("Air"));
-
 export default new DB();
-
-
-

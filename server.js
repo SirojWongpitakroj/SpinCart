@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import session from "express-session";
 
 const app = express();
+let category_chosen;
 
 //middleware
 
@@ -21,6 +22,22 @@ app.use(session({
     cookie: { maxAge: 1000 * 60 * 60 }, // 1 hour
     rolling: true
 }))
+
+app.use(async (req, res, next) => {
+    try {
+        const categories = await db.getAllCategories();
+        res.locals.categories = categories;
+    } catch (err) {
+        console.error(err);
+        res.locals.categories = [];
+    }
+
+    const chosen = req.session.categoryChosen || null;
+    res.locals.categoryChosen = chosen;
+    category_chosen = chosen;
+
+    next();
+});
 
 //helper function
 function formatPrice(price) {
@@ -67,9 +84,28 @@ app.get("/", async (req, res) => {
         ishidden = ""
     } 
 
+    const selectedCategory = req.session.categoryChosen;
+    let products;
+    if (selectedCategory) {
+        products = await db.getProductsByCategory(selectedCategory);
+    } else {
+        products = await db.getAllProductAndImage();
+    }
+
     res.render("home.ejs", { 
-        hideLogin: ishidden, products: await db.getAllProductAndImage() 
+        hideLogin: ishidden,
+        products
     });
+});
+
+app.post("/filter/apply", (req, res) => {
+    const { category } = req.body;
+    const normalized = category && category !== "all" ? category : null;
+
+    req.session.categoryChosen = normalized;
+    category_chosen = normalized;
+
+    res.json({ success: true, category: normalized });
 });
 
 app.post("/search", isAuthenticated, async (req, res) => {

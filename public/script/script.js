@@ -26,7 +26,21 @@ $(".quantity-btn").each(function (index, button) {
 });
 
 // Filter Modal Functionality
-var selectedCategory = null;
+let selectedCategory = $("#filter-modal").data("selected-category") || null;
+
+function highlightSelectedCategory(category) {
+    $(".category-btn")
+        .removeClass("bg-blue-500 text-white")
+        .addClass("bg-gray-100 text-gray-700");
+
+    if (!category) return;
+
+    $(`.category-btn[data-category="${category}"]`)
+        .removeClass("bg-gray-100 text-gray-700")
+        .addClass("bg-blue-500 text-white");
+}
+
+highlightSelectedCategory(selectedCategory);
 
 // Open filter modal
 $("#filter-button, #filter-menu").click(function() {
@@ -47,20 +61,22 @@ $("#filter-modal").click(function(e) {
 
 // Category selection
 $(".category-btn").click(function() {
-    // Remove active state from all buttons
-    $(".category-btn").removeClass("bg-blue-500 text-white").addClass("bg-gray-100 text-gray-700");
-    
-    // Add active state to clicked button
-    $(this).removeClass("bg-gray-100 text-gray-700").addClass("bg-blue-500 text-white");
-    
-    // Store selected category
     selectedCategory = $(this).data("category");
+    highlightSelectedCategory(selectedCategory);
 });
 
 // Apply filter
 $("#apply-filter").click(function() {
     // Close modal
     $("#filter-modal").addClass("hidden");
+
+    axios.post("/filter/apply", { category: selectedCategory })
+        .then(() => {
+            window.location.href = "/";
+        })
+        .catch((err) => {
+            console.error(err);
+        });
 });
 
 // Clear filter
@@ -73,6 +89,14 @@ $("#clear-filter").click(function() {
     
     // Show all products
     $(".product-card").show();
+
+    axios.post("/filter/apply", { category: null })
+        .then(() => {
+            window.location.href = "/";
+        })
+        .catch((err) => {
+            console.error(err);
+        });
 });
 
 //Handle Dismiss button
