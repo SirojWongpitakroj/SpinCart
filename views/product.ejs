@@ -1,52 +1,94 @@
 <%- include("partials/header.ejs") %>
 
     <!--Main section-->
-    <section class="flex md:flex-row flex-col p-8 h-screen pt-24">
-        <!--Image Section-->
-        <div class="relative flex justify-center items-center w-full md:w-1/2 max-w-2xl rounded-2xl bg-white md:p-16 p-8 flex-shrink-0">
-            <img src="<%= prod.url %>" alt="Product Image" class="w-full h-auto max-h-[480px] object-contain">
-            <div class="absolute top-1/2 left-2 rounded-full">
-                <img src="images/Arrow-icon.png" alt="arrow-icon">
-            </div>
-            <div class="absolute top-1/2 right-2 rounded-full scale-x-[-1]">
-                <img src="images/Arrow-icon.png" alt="arrow-icon">
-            </div>
-        </div>
+    <section class="pt-24 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                
+                <!--Image Section-->
+                <div class="relative flex justify-center items-center w-full rounded-2xl bg-white p-6 lg:p-12">
+                    <img src="<%= prod.url %>" alt="Product Image" class="w-full h-auto max-h-[500px] object-contain">
+                    <div class="absolute top-1/2 left-4 rounded-full cursor-pointer hover:bg-gray-100 p-2 transition">
+                        <img src="images/Arrow-icon.png" alt="arrow-icon" class="w-6 h-6">
+                    </div>
+                    <div class="absolute top-1/2 right-4 rounded-full scale-x-[-1] cursor-pointer hover:bg-gray-100 p-2 transition">
+                        <img src="images/Arrow-icon.png" alt="arrow-icon" class="w-6 h-6">
+                    </div>
+                </div>
 
-        <!--Product Title and Description-->
-        <div class="flex flex-col items-start p-2 gap-2 relative w-full">
-            <h1 class="text-2xl font-semibold"><%= prod.title %></h1>
-            <p class="bg-white rounded-lg p-2"><%= prod.short_description %></p>
-            <h2 class="text-xl font-semibold">Description</h2>
-            <p class="long-text text-sm bg-white rounded-lg p-2"><%= prod.description %></p>
-            <div class="flex justify-between items-end p-4 w-full h-full">
-                <div class="flex flex-col h-full gap-2 justify-end w-1/2 md:w-auto">
-                    <div class="flex items-center gap-2">
-                        <img src="images/star-icon.png" alt="star-icon" class="h-8 object-contain">
-                        <h3 class="text-yellow-400 text-3xl font-bold">4.7</h3>
-                        <h4 class="text-md font-medium">(1983)</h4>
+                <!--Product Info Section-->
+                <div class="flex flex-col gap-6">
+                    <!--Product Title and Short Description-->
+                    <div class="space-y-3">
+                        <h1 class="text-3xl lg:text-4xl font-bold text-gray-900"><%= prod.title %></h1>
+                        <p class="text-lg text-gray-600"><%= prod.short_description %></p>
                     </div>
-                    <div class="flex flex-col items-center border-black bg-yellow-100 rounded-xl shadow-[inset_0_0_10px_rgba(0,0,0,0.05)] p-4 gap-2">
-                        <p class="long-text text-center text-xs lg:w-48 md:w-32">I'm very satisfied with this air purifier. Since I've been using it. I've noticed the air is much fresher and cleaner, especially in the room where I spend the most time.</p>
-                        <img src="images/star-icon.png" alt="star-icon" class="w-6 h-6">
-                    </div>
-                </div>
-                <div class="flex flex-col items-end gap-3">
-                    <form action="/cart/add" method="POST" class="flex flex-col items-center gap-3" id="add-to-cart-form">
-                        <div class="flex items-center rounded-full">
-                            <button type="button" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full quantity-btn" data-quantity-action="decrement">-</button>
-                            <input type="number" name="quantity" value="1" min="1" readonly class="w-12 pl-4 text-center appearance-none [appearance:textfield] focus:outline-none 
-                            no-spinner quantity-input">
-                            <button type="button" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full quantity-btn" data-quantity-action="increment">+</button>
+
+                    <!--Rating and Review Section-->
+                    <div class="bg-yellow-50 rounded-xl p-6 border-2 border-yellow-200">
+                        <div class="flex items-center gap-3 mb-4">
+                            <img src="images/star-icon.png" alt="star-icon" class="h-8 w-8 object-contain">
+                            <div class="flex items-baseline gap-2">
+                                <h3 class="text-yellow-600 text-3xl font-bold"><%= prod.avg_rating %></h3>
+                                <h4 class="text-gray-600 font-medium">(<%= locals.countReview %> reviews)</h4>
+                            </div>
                         </div>
-                        <h2 class="text-2xl font-bold mr-4 whitespace-nowrap">฿<%= prod.price %></h2>
-                        <input type="hidden" name="id" value="<%= prod.product_id %>">
-                        <button type="submit" class="bg-blue-500 rounded-full px-6 py-3 text-white whitespace-nowrap hover:bg-blue-600 transition">Add to Cart</button>
-                    </form>
+                        <% if (locals.comment && locals.comment !== "") { %>
+                            <div class="border-t border-yellow-300 pt-4 mt-4">
+                                <div class="flex items-start gap-2">
+                                    <img src="images/star-icon.png" alt="star-icon" class="w-5 h-5 mt-1 flex-shrink-0">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-700 mb-1">Top Review:</p>
+                                        <p class="text-gray-700 leading-relaxed"><%= locals.comment %></p>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <!--Price Section-->
+                    <div class="border-b border-gray-200 pb-6">
+                        <h2 class="text-4xl font-bold text-gray-900">฿<%= prod.price %></h2>
+                    </div>
+
+                    <!--Add to Cart Section-->
+                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                        <form action="/cart/add" method="POST" id="add-to-cart-form" class="space-y-4">
+                            <input type="hidden" name="id" value="<%= prod.product_id %>">
+                            
+                            <!--Quantity Selector-->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-3">Quantity</label>
+                                <div class="flex items-center gap-4">
+                                    <div class="flex items-center rounded-full border-2 border-gray-300 bg-white">
+                                        <button type="button" class="px-5 py-2.5 bg-gray-50 hover:bg-gray-100 rounded-l-full quantity-btn transition-colors" data-quantity-action="decrement">
+                                            <span class="text-lg font-semibold">-</span>
+                                        </button>
+                                        <input type="number" name="quantity" value="1" min="1" readonly class="w-16 text-center text-lg font-semibold appearance-none [appearance:textfield] focus:outline-none no-spinner quantity-input border-x-2 border-gray-300 py-2.5">
+                                        <button type="button" class="px-5 py-2.5 bg-gray-50 hover:bg-gray-100 rounded-r-full quantity-btn transition-colors" data-quantity-action="increment">
+                                            <span class="text-lg font-semibold">+</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Add to Cart Button-->
+                            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-8 rounded-full transition-colors duration-200 text-lg shadow-lg hover:shadow-xl">
+                                Add to Cart
+                            </button>
+                        </form>
+                    </div>
+
+                    <!--Description Section-->
+                    <div class="space-y-3">
+                        <h2 class="text-xl font-semibold text-gray-900">Description</h2>
+                        <div class="bg-white rounded-lg p-4 border border-gray-200">
+                            <p class="long-text text-gray-700 leading-relaxed"><%= prod.description %></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        
     </section>
 
     <div id="cart-toast" data-message="<%= locals.cfmes || '' %>" class="fixed z-20 top-20 right-6 max-w-xs w-full bg-green-600 text-white px-4 py-3 rounded-lg shadow-lg opacity-0 pointer-events-none transform translate-x-full transition-all duration-300 ease-in-out">

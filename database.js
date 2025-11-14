@@ -91,24 +91,19 @@ class DB {
         return result[0];
     }
 
-    async getReviewsByProductId(pid) {
+    async getBestComment(pid) {
         const [result] = await pool.query(
-            `SELECT `
-        )
-    } //incomplete
+            `SELECT comment 
+            FROM reviews
+            WHERE product_id = ? AND rating = (
+                SELECT MAX(rating) FROM reviews WHERE product_id = ?
+            )
+            ORDER BY rating DESC, comment IS NOT NULL DESC`,
+            [pid, pid]
+        );
+        return result[0];
+    } 
 
-    // async getLatestOrder(uid) {
-    //     const [result] = await pool.query(
-    //         `SELECT * FROM orders o
-    //         INNER JOIN users u ON o.user_id = u.user_id
-    //         INNER JOIN order_items oi ON o.order_id = oi.order_id
-    //         INNER JOIN products p ON oi.product_id = p.product_id
-    //         INNER JOIN product_images pi ON p.product_id = pi.product_id
-    //         WHERE user_id = ?
-    //         ORDER BY o.placed_at DESC
-    //         LIMIT 1`, [uid]
-    //     );
-    // };
 
     async insertOrder(total, shipping_fee, subtotal, uid, payment_id) {
         const [result] = await pool.query(
@@ -277,9 +272,18 @@ class DB {
         
         return insertedIds;
     }
+
+    async getCountReviewsByProdId(pid) {
+        const [result] = await pool.query(
+            `SELECT COUNT(*) as count FROM reviews
+            WHERE product_id = ?`,
+            [pid]
+        );
+        return result[0].count;
+    }
 };
 
 // const db1 = new DB();
-// console.log(await db1.insertPayment(3000));
+// console.log(await db1.getBestComment(2));
 
 export default new DB();

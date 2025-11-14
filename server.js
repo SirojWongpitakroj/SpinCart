@@ -134,10 +134,20 @@ app.get("/product", isAuthenticated, async (req, res) => {
         return res.redirect("/");
     }
 
+    const commentJSON = await db.getBestComment(prodId);
+    const countReview = await db.getCountReviewsByProdId(prodId);
+    
+    let comment;
+    try {
+        comment = commentJSON.comment; 
+    } catch(err) {
+        comment = "";
+    }  
+        
     
     product.price = formatPrice(parseFloat(product.price));
 
-    res.render("product.ejs", { prod: product, cfmes: message });
+    res.render("product.ejs", { prod: product, cfmes: message, countReview: countReview, comment: comment });
 });
 
 app.get("/cart", isAuthenticated, async (req, res) => {
