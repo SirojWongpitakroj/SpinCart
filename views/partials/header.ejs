@@ -46,6 +46,13 @@
                     <a href="/profile" class="p-2 rounded-full bg-white hover:bg-blue-600 transition-colors duration-200 aspect-square">
                         <img src="images/profile-logo.png" alt="Profile" class="w-6 h-6 object-scale-down">
                     </a>
+
+                    <!-- Admin Icon -->
+                    <% if (locals.isAdmin) { %>
+                        <a href="/admin" class="p-2 rounded-full bg-white hover:bg-blue-600 transition-colors duration-200 aspect-square">
+                            <img src="images/admin-logo.png" alt="Admin" class="w-6 h-6 object-scale-down">
+                        </a>
+                    <% } %>
                 </div>
                 
                 <!-- Mobile hamburger menu button -->
@@ -66,5 +73,8 @@
         <div class="text-lg font-semibold p-2 hover:bg-blue-600 rounded-lg text-white"><a href="/">Home</a></div>
         <div class="text-lg font-semibold p-2 hover:bg-blue-600 rounded-lg text-white"><a href="/cart">Shopping Cart</a></div>
         <div class="text-lg font-semibold p-2 hover:bg-blue-600 rounded-lg text-white"><a href="/profile">Profile</a></div>
+        <% if (locals.isAdmin) { %>
+            <div class="text-lg font-semibold p-2 hover:bg-blue-600 rounded-lg text-white"><a href="/admin">Admin</a></div>
+        <% } %>
         <div id="filter-menu" class="text-lg font-semibold p-2 hover:bg-blue-600 rounded-lg text-white"><a href="/">Filter</a></div>
     </div>

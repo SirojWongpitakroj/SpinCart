@@ -1,0 +1,303 @@
+<%- include('partials/header') %>
+
+<% if (typeof message !== 'undefined' && message) { %>
+<!-- Success Popup -->
+<div class="fixed top-4 right-4 z-50 w-full max-w-md">
+    <input type="checkbox" id="success-popup-toggle" class="hidden" checked>
+    <div id="success-popup" class="bg-green-500 text-white rounded-lg shadow-lg p-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <p class="font-semibold"><%= message %></p>
+        </div>
+        <label for="success-popup-toggle" class="cursor-pointer hover:bg-green-600 rounded-full p-1 transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </label>
+    </div>
+</div>
+<% } %>
+
+<section class="pt-24 min-h-screen bg-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Title -->
+        <div class="mb-6">
+            <h1 class="text-3xl font-bold text-gray-900">Admin Space</h1>
+            <p class="text-gray-600 mt-2">Manage products and inventory</p>
+        </div>
+
+            <!-- Main Content Area -->
+            <main class="flex-1">
+                <!-- Add Product Content -->
+                <div id="content-add" class="tab-content">
+                    <div class="bg-white rounded-xl shadow-sm p-6 lg:p-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Add New Product</h2>
+                        
+                        <form action="/admin/add-product" method="post" enctype="multipart/form-data" class="space-y-6">
+                            <!-- Product Title -->
+                            <div>
+                                <label for="product-title" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Product Title <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" id="product-title" name="title" required
+                                    class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
+                                    placeholder="Enter product title">
+                            </div>
+
+                            <!-- Short Description -->
+                            <div>
+                                <label for="short-description" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Short Description <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" id="short-description" name="short_desc" required
+                                    class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
+                                    placeholder="Brief product description">
+                            </div>
+
+                            <!-- Full Description -->
+                            <div>
+                                <label for="full-description" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Full Description <span class="text-red-500">*</span>
+                                </label>
+                                <textarea id="full-description" name="long_desc" rows="5" required
+                                    class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200 resize-none"
+                                    placeholder="Detailed product description"></textarea>
+                            </div>
+
+                            <!-- Price and Category Row -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Price -->
+                                <div>
+                                    <label for="product-price" class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Price (฿) <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="number" id="product-price" name="price" step="0.01" min="0" required
+                                        class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
+                                        placeholder="0.00">
+                                </div>
+
+                                <!-- Category -->
+                                <div>
+                                    <label for="product-category" class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Category <span class="text-red-500">*</span>
+                                    </label>
+                                    <select id="product-category" name="category" required
+                                        class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200">
+                                        <option value="">Select a category</option>
+                                        <option value="Electronics">Electronics</option>
+                                        <option value="Clothing">Clothing</option>
+                                        <option value="Home & Living">Home & Living</option>
+                                        <option value="Beauty">Beauty</option>
+                                        <option value="Sports">Sports</option>
+                                        <option value="Books">Books</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Length, Width, and Height Row -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <!-- Length -->
+                                <div>
+                                    <label for="product-length" class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Length (cm) <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="number" id="product-length" name="length" step="0.01" min="0" required
+                                        class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
+                                        placeholder="0.00">
+                                </div>
+
+                                <!-- Width -->
+                                <div>
+                                    <label for="product-width" class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Width (cm) <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="number" id="product-width" name="width" step="0.01" min="0" required
+                                        class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
+                                        placeholder="0.00">
+                                </div>
+
+                                <!-- Height -->
+                                <div>
+                                    <label for="product-height" class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Height (cm) <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="number" id="product-height" name="height" step="0.01" min="0" required
+                                        class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
+                                        placeholder="0.00">
+                                </div>
+                            </div>
+
+                            <!-- Image Upload -->
+                            <div>
+                                <label for="product-image" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Product Image <span class="text-red-500">*</span>
+                                </label>
+                                <div class="mt-2 flex justify-center px-6 py-8 border-2 border-gray-300 border-dashed rounded-xl hover:border-blue-500 transition-colors">
+                                    <div class="text-center">
+                                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                        <div class="mt-4 flex flex-col text-sm text-gray-600">
+                                    
+                                            <input type="file" id="product-image" name="image" class="hidden" required>
+
+                                            <label for="product-image" 
+                                            class="block w-full p-2 border-2 border-dashed border-gray-300 rounded-lg text-center cursor-pointer hover:bg-gray-50">
+                                            <p id="file-upload-text" class="text-gray-600">Click to upload an image</p>
+                                            </label>
+                                            <p class="text-sm text-gray-400">PNG, JPG, JPEG</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="flex justify-end gap-4 pt-4">
+                                <button type="reset" class="px-6 py-3 rounded-xl border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                                    Reset
+                                </button>
+                                <button type="submit" class="px-6 py-3 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors shadow-md">
+                                    Add Product
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* CSS-only tab switching using radio buttons */
+    /* Hide View Products content by default */
+
+    #content-view {
+        display: none;
+    }
+    
+    /* Show Add Product content by default */
+    #content-add {
+        display: block;
+    }
+    
+    /* When View Products tab is checked, show its content and hide Add Product */
+    #tab-view:checked ~ div main #content-add {
+        display: none;
+    }
+    
+    #tab-view:checked ~ div main #content-view {
+        display: block;
+    }
+    
+    /* When Add Product tab is checked, show its content and hide View Products */
+    #tab-add:checked ~ div main #content-add {
+        display: block;
+    }
+    
+    #tab-add:checked ~ div main #content-view {
+        display: none;
+    }
+    
+    /* Update sidebar tab styles based on selection */
+    #tab-add:checked ~ div label[for="tab-add"] .tab-add-label {
+        background-color: rgb(37 99 235) !important;
+        color: white !important;
+    }
+    
+    #tab-add:checked ~ div label[for="tab-view"] .tab-view-label {
+        background-color: rgb(243 244 246) !important;
+        color: rgb(55 65 81) !important;
+    }
+    
+    #tab-view:checked ~ div label[for="tab-view"] .tab-view-label {
+        background-color: rgb(37 99 235) !important;
+        color: white !important;
+    }
+    
+    #tab-view:checked ~ div label[for="tab-add"] .tab-add-label {
+        background-color: rgb(243 244 246) !important;
+        color: rgb(55 65 81) !important;
+    }
+    
+    /* Success Popup Styles */
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    @keyframes slideOutRight {
+        from {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+    }
+    
+    /* Show popup with slide in from right animation */
+    #success-popup {
+        animation: slideInRight 0.3s ease-out forwards;
+    }
+    
+    /* Hide popup when checkbox is unchecked */
+    #success-popup-toggle:not(:checked) ~ #success-popup {
+        animation: slideOutRight 0.3s ease-out forwards;
+        pointer-events: none;
+    }
+</style>
+
+<script>
+    // Wait for both DOM and jQuery to be ready
+    function updateFileName() {
+        const fileInput = document.getElementById('product-image');
+        const fileUploadText = document.getElementById('file-upload-text');
+        
+        if (fileInput && fileUploadText) {
+            fileInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    // Update text to show file name
+                    fileUploadText.textContent = file.name;
+                } else {
+                    // Reset to default text if no file
+                    fileUploadText.textContent = 'Click to upload an image';
+                }
+            });
+
+            // Handle form reset
+            const form = fileInput.closest('form');
+            if (form) {
+                form.addEventListener('reset', function() {
+                    fileUploadText.textContent = 'Click to upload an image';
+                });
+            }
+        }
+    }
+
+    // Try multiple ways to ensure it runs
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateFileName);
+    } else {
+        updateFileName();
+    }
+
+    // Also try with jQuery if available (as backup)
+    if (typeof jQuery !== 'undefined') {
+        jQuery(document).ready(function() {
+            updateFileName();
+        });
+    }
+</script>
+<%- include('partials/footer') %>
+

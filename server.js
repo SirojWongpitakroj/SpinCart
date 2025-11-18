@@ -3,6 +3,19 @@ import bodyParser from "body-parser";
 import db from "./database.js";
 import bcrypt from "bcrypt";
 import session from "express-session";
+import multer from "multer";
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "public/product_images");
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
+
+const upload = multer({ storage });
+
 
 const app = express();
 let category_chosen;
@@ -36,10 +49,25 @@ app.use(async (req, res, next) => {
     res.locals.categoryChosen = chosen;
     category_chosen = chosen;
 
+    //Add isAdmin to res.locals
+    if (req.session.user) {
+        res.locals.isAdmin = req.session.user.isAdmin;
+    } else {
+        res.locals.isAdmin = false;
+    }
+
     next();
 });
 
 //helper function
+function checkAdmin(req, res, next) {
+    if (req.session.user.isAdmin) {
+        next();
+    } else {
+        return res.redirect("/");
+    }
+};
+
 function formatPrice(price) {
     if (price % 1 === 0) {
         return Math.round(price);
@@ -370,8 +398,27 @@ app.post("/login", async (req, res) => {
         return await renderLoginError(res, username);
     }
 
-    req.session.user = { id: user.user_id, username: username };
+    req.session.user = { id: user.user_id, username: username, isAdmin: user.is_admin };
     res.redirect("/");
+});
+
+app.get("/admin", isAuthenticated, async (req, res) => {
+    const message = req.session.message;
+    delete req.session.message;
+    res.render("admin.ejs", { message });
+});
+
+app.post("/admin/add-product", isAuthenticated, checkAdmin, upload.single("image"), async (req, res) => {
+
+    const { title, short_desc, long_desc, price, category, length, width, height } = req.body;
+    
+    // Get the uploaded file name from multer
+    const image_name = req.file ? "/product_images/" + req.file.filename : null;
+    
+    const insertId = await db.insertProduct(title, short_desc, long_desc, price, category, length, height, width, image_name);
+    req.session.message = "Product added successfully";
+    res.redirect("/admin");
+
 });
 
 app.listen(process.env.PORT, () => {

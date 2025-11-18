@@ -28,6 +28,13 @@ class DB {
         return row[0];
     };
 
+    async insertProduct(title, short_desc, long_desc, price, category, length, height, width, image_url) {
+        const [result] = await pool.query(`CALL insert_product_and_image(?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
+            [title, short_desc, long_desc, price, category, length, height, width, image_url]); 
+        return result.insertId;
+    };
+
+
     async insertCartItems(prod, quantity, user_id) {
         const result = await pool.query(
             `INSERT INTO cart_items(unit_price, quantity, product_id, user_id)
@@ -284,6 +291,6 @@ class DB {
 };
 
 // const db1 = new DB();
-// console.log(await db1.getBestComment(2));
+// console.log(await db1(2));
 
 export default new DB();
