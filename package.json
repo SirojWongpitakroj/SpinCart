@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/SirojWongpitakroj/SpinCart#readme",
   "dependencies": {
+    "@tailwindcss/cli": "^4.1.17",
     "axios": "^1.13.2",
     "bcrypt": "^6.0.0",
     "body-parser": "^2.2.0",
@@ -27,6 +28,10 @@
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-session": "^1.18.2",
-    "mysql2": "^3.15.3"
+    "mysql2": "^3.15.3",
+    "nodemon": "^3.1.11"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.1.17"
   }
 }

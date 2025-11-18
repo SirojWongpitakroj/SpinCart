@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+/* Your custom styles */
+.bg-cream {
+    background-color: #f4eee8;
+}
+
+/* Custom checkbox with checkmark */
+input[type="checkbox"] {
+    position: relative;
+}
+
+input[type="checkbox"].rounded-full:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+}
