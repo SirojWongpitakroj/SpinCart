@@ -181,9 +181,11 @@ app.get("/product", isAuthenticated, async (req, res) => {
 app.get("/cart", isAuthenticated, async (req, res) => {
     const allCartItems = await db.getAllCartItemsByUserId(req.session.user.id);
     const subtotal = allCartItems.reduce((acc, item) => acc + item.unit_price * item.quantity, 0);
+    const shippingFee = allCartItems.length > 0 ? 100 : 0;
     res.render("cart.ejs", { 
         items: allCartItems,
-        subtotal: subtotal 
+        subtotal: subtotal,
+        shippingFee: shippingFee
     });
 });
 

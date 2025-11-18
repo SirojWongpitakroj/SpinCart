@@ -131,9 +131,12 @@ $(".qty-btn").click(async function() {
 
     $input.val(qty);
 
+    // Get current shipping fee (should be 100 if items exist, but use current value)
+    const currentShippingFee = parseFloat($("#shipping-fee").text().slice(1)) || 100;
+
     //subtotal and total update
     $("#subtotal").text("฿" + sum);
-    $("#total").text("฿" + (sum + 100));
+    $("#total").text("฿" + (sum + currentShippingFee));
 
     debouncedSendQtyUpdate(item_id, qty);
 });
@@ -165,14 +168,27 @@ $(".remove-btn").click(async function() {
     $button = $(this);
     const item_id = $button.data("itemId");
     const unit_price = parseFloat($button.data("price"));
-    const qty = parseInt($button.data("qty"), 10);
+    
+    // Get the current quantity from the input field, not the data attribute
+    // This ensures we use the updated quantity if user changed it
+    const $quantityInput = $button.closest(".relative").find(".quantity-input");
+    const qty = parseInt($quantityInput.val(), 10) || parseInt($button.data("qty"), 10);
+    
     const subtotal = parseFloat($("#subtotal").text().slice(1));
-
     const total_deleted = unit_price * qty;
+    const newSubtotal = subtotal - total_deleted;
 
-    //subtract deleted item's price
-    $("#subtotal").text("฿" + (subtotal - total_deleted));
-    $("#total").text("฿" + (subtotal - total_deleted + 100));
+    // Check how many items will remain after this deletion
+    const $allItems = $(".relative.flex.gap-4.bg-white");
+    const remainingItems = $allItems.length - 1; // -1 because we're removing one
+    
+    // Update shipping fee: 0 if no items left, 100 if items remain
+    const shippingFee = remainingItems > 0 ? 100 : 0;
+
+    // Update subtotal, shipping fee, and total
+    $("#subtotal").text("฿" + newSubtotal);
+    $("#shipping-fee").text("฿" + shippingFee);
+    $("#total").text("฿" + (newSubtotal + shippingFee));
 
     try {
         const response = await fetch("/cart/delete", {

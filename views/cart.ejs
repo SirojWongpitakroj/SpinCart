@@ -43,9 +43,9 @@
                     <h2 class="text-lg font-semibold text-gray-900 mb-4">Payment Details</h2>
                     <div class="space-y-2 text-sm">
                         <div class="flex justify-between"><span class="text-gray-600">Subtotal</span><span id="subtotal" class="text-gray-900">฿<%= locals.subtotal %></span></div>
-                        <div class="flex justify-between"><span class="text-gray-600">Shipping fee</span><span class="text-gray-900">฿100</span></div>
+                        <div class="flex justify-between"><span class="text-gray-600">Shipping fee</span><span id="shipping-fee" class="text-gray-900">฿<%= locals.shippingFee || 0 %></span></div>
                         <hr class="my-3">
-                        <div class="flex justify-between text-base font-semibold"><span>Total Payment</span><span id="total">฿<%= locals.subtotal + 100 %></span></div>
+                        <div class="flex justify-between text-base font-semibold"><span>Total Payment</span><span id="total">฿<%= (locals.subtotal || 0) + (locals.shippingFee || 0) %></span></div>
                     </div>
                     <a href="/payment" class="block text-center mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded-full">Place Order</a>
                 </div>
