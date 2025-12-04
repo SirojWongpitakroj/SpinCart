@@ -423,8 +423,7 @@ app.post("/admin/add-product", isAuthenticated, checkAdmin, upload.single("image
 
 });
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server is up and running at port:${process.env.PORT}`);
-})
+
+export default app;
 
 
